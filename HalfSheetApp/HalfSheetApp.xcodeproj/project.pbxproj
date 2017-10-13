@@ -7,30 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F0028011F9185BF00421471 /* GTSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F0028001F9185AF00421471 /* GTSheet.framework */; };
 		6FB0B5001F758D9E00A4F6D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4FF1F758D9E00A4F6D4 /* AppDelegate.swift */; };
 		6FB0B5021F758D9E00A4F6D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B5011F758D9E00A4F6D4 /* ViewController.swift */; };
 		6FB0B5051F758D9E00A4F6D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0B5031F758D9E00A4F6D4 /* Main.storyboard */; };
 		6FB0B5071F758D9E00A4F6D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0B5061F758D9E00A4F6D4 /* Assets.xcassets */; };
 		6FB0B50A1F758D9E00A4F6D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6FB0B5081F758D9E00A4F6D4 /* LaunchScreen.storyboard */; };
-		6FBC01F21F75B24D00781E90 /* GTHalfSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB0B51C1F758F8600A4F6D4 /* GTHalfSheet.framework */; };
-		6FBC01F31F75B24D00781E90 /* GTHalfSheet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6FB0B51C1F758F8600A4F6D4 /* GTHalfSheet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		6FBC01F81F75B36800781E90 /* PlainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FBC01F71F75B36800781E90 /* PlainVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6FB0B51B1F758F8600A4F6D4 /* PBXContainerItemProxy */ = {
+		6F0027FF1F9185AF00421471 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 6FB0B5171F758F8600A4F6D4 /* GTHalfSheet.xcodeproj */;
+			containerPortal = 6F0027FB1F9185AF00421471 /* GTSheet.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 6FB0B4D71F75845600A4F6D4;
-			remoteInfo = GTHalfSheet;
-		};
-		6FBC01F41F75B24D00781E90 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6FB0B5171F758F8600A4F6D4 /* GTHalfSheet.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 6FB0B4D61F75845600A4F6D4;
-			remoteInfo = GTHalfSheet;
+			remoteInfo = GTSheet;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -41,7 +33,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				6FBC01F31F75B24D00781E90 /* GTHalfSheet.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -49,6 +40,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6F0027FB1F9185AF00421471 /* GTSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTSheet.xcodeproj; path = ../GTHalfSheet/GTSheet.xcodeproj; sourceTree = "<group>"; };
 		6FB0B4FC1F758D9E00A4F6D4 /* HalfSheetApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HalfSheetApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6FB0B4FF1F758D9E00A4F6D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6FB0B5011F758D9E00A4F6D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,7 +48,6 @@
 		6FB0B5061F758D9E00A4F6D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6FB0B5091F758D9E00A4F6D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6FB0B50B1F758D9E00A4F6D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6FB0B5171F758F8600A4F6D4 /* GTHalfSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GTHalfSheet.xcodeproj; path = ../GTHalfSheet/GTHalfSheet.xcodeproj; sourceTree = "<group>"; };
 		6FBC01F71F75B36800781E90 /* PlainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlainVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -65,17 +56,25 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6FBC01F21F75B24D00781E90 /* GTHalfSheet.framework in Frameworks */,
+				6F0028011F9185BF00421471 /* GTSheet.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6F0027FC1F9185AF00421471 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6F0028001F9185AF00421471 /* GTSheet.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		6FB0B4F31F758D9E00A4F6D4 = {
 			isa = PBXGroup;
 			children = (
-				6FB0B5171F758F8600A4F6D4 /* GTHalfSheet.xcodeproj */,
+				6F0027FB1F9185AF00421471 /* GTSheet.xcodeproj */,
 				6FB0B4FE1F758D9E00A4F6D4 /* HalfSheetApp */,
 				6FB0B4FD1F758D9E00A4F6D4 /* Products */,
 				6FB0B51D1F758F9400A4F6D4 /* Frameworks */,
@@ -104,14 +103,6 @@
 			path = HalfSheetApp;
 			sourceTree = "<group>";
 		};
-		6FB0B5181F758F8600A4F6D4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6FB0B51C1F758F8600A4F6D4 /* GTHalfSheet.framework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6FB0B51D1F758F9400A4F6D4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,7 +125,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				6FBC01F51F75B24D00781E90 /* PBXTargetDependency */,
 			);
 			name = HalfSheetApp;
 			productName = HalfSheetApp;
@@ -170,8 +160,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 6FB0B5181F758F8600A4F6D4 /* Products */;
-					ProjectRef = 6FB0B5171F758F8600A4F6D4 /* GTHalfSheet.xcodeproj */;
+					ProductGroup = 6F0027FC1F9185AF00421471 /* Products */;
+					ProjectRef = 6F0027FB1F9185AF00421471 /* GTSheet.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -182,11 +172,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		6FB0B51C1F758F8600A4F6D4 /* GTHalfSheet.framework */ = {
+		6F0028001F9185AF00421471 /* GTSheet.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
-			path = GTHalfSheet.framework;
-			remoteRef = 6FB0B51B1F758F8600A4F6D4 /* PBXContainerItemProxy */;
+			path = GTSheet.framework;
+			remoteRef = 6F0027FF1F9185AF00421471 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -216,14 +206,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		6FBC01F51F75B24D00781E90 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = GTHalfSheet;
-			targetProxy = 6FBC01F41F75B24D00781E90 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		6FB0B5031F758D9E00A4F6D4 /* Main.storyboard */ = {

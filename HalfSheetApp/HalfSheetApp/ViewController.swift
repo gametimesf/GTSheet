@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import GTHalfSheet
+import GTSheet
 
 class ViewController: UIViewController, HalfSheetPresentationProtocol {
 

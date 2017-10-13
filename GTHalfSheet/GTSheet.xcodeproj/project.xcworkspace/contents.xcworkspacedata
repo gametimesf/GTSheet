@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:GTHalfSheet.xcodeproj">
+      location = "self:/Users/mbanach/Documents/GTHalfSheet/GTHalfSheet/GTSheet.xcodeproj">
    </FileRef>
 </Workspace>

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6FB0B4D61F75845600A4F6D4"
-               BuildableName = "GTHalfSheet.framework"
-               BlueprintName = "GTHalfSheet"
-               ReferencedContainer = "container:GTHalfSheet.xcodeproj">
+               BuildableName = "GTSheet.framework"
+               BlueprintName = "GTSheet"
+               ReferencedContainer = "container:GTSheet.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -48,9 +48,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6FB0B4D61F75845600A4F6D4"
-            BuildableName = "GTHalfSheet.framework"
-            BlueprintName = "GTHalfSheet"
-            ReferencedContainer = "container:GTHalfSheet.xcodeproj">
+            BuildableName = "GTSheet.framework"
+            BlueprintName = "GTSheet"
+            ReferencedContainer = "container:GTSheet.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -66,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "6FB0B4D61F75845600A4F6D4"
-            BuildableName = "GTHalfSheet.framework"
-            BlueprintName = "GTHalfSheet"
-            ReferencedContainer = "container:GTHalfSheet.xcodeproj">
+            BuildableName = "GTSheet.framework"
+            BlueprintName = "GTSheet"
+            ReferencedContainer = "container:GTSheet.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
