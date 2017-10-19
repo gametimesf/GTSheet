@@ -116,6 +116,13 @@ public class PresentationViewController: UIPresentationController {
             )
         )
 
+        if let appearanceProvider = presentedViewController as? HalfSheetAppearanceProtocol {
+            presentedView.clipsToBounds = true
+            presentedView.round(corners: [.topLeft, .topRight], radius: appearanceProvider.cornerRadius)
+        }
+
+        presentedViewController.view.add(gestureRecognizer: self.managerDelegate?.dismissingPanGesture)
+
         containerView.setNeedsLayout()
         containerView.layoutIfNeeded()
     }
@@ -221,6 +228,14 @@ private extension UIView {
     func add(gestureRecognizer: UIGestureRecognizer?) {
         guard let gestureRecognizer = gestureRecognizer else { return }
         addGestureRecognizer(gestureRecognizer)
+    }
+
+    func round(corners: UIRectCorner, radius: CGFloat) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
     }
 }
 

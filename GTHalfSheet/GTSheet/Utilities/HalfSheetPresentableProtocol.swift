@@ -21,3 +21,7 @@ public protocol HalfSheetTopVCProviderProtocol: class {
 public protocol HalfSheetCompletionProtocol: class {
     func didDismiss()
 }
+
+public protocol HalfSheetAppearanceProtocol: class {
+    var cornerRadius: CGFloat { get }
+}

@@ -36,6 +36,12 @@ class PlainVC: UIViewController, HalfSheetPresentableProtocol {
     }
 }
 
+extension PlainVC: HalfSheetAppearanceProtocol {
+    var cornerRadius: CGFloat {
+        return 8.0
+    }
+}
+
 class HatParentVC: UIViewController, HalfSheetTopVCProviderProtocol {
 
     lazy var topVC: UIViewController = {
