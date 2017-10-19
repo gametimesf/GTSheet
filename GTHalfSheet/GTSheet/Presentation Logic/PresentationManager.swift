@@ -120,10 +120,6 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
             }
         }
 
-        if let offset = change?[.newKey] as? CGPoint {
-            print(offset.y + topOffset)
-        }
-
         if let offset = change?[.newKey] as? CGPoint, offset.y + topOffset < 0, observingScrollView {
             let offset = offset.y + topOffset
 

@@ -116,12 +116,12 @@ public class PresentationViewController: UIPresentationController {
             )
         )
 
-        if let appearanceProvider = presentedViewController as? HalfSheetAppearanceProtocol {
+        if let appearanceProvider = respondingVC as? HalfSheetAppearanceProtocol {
             presentedView.clipsToBounds = true
             presentedView.round(corners: [.topLeft, .topRight], radius: appearanceProvider.cornerRadius)
         }
 
-        presentedViewController.view.add(gestureRecognizer: self.managerDelegate?.dismissingPanGesture)
+        presentedView.add(gestureRecognizer: self.managerDelegate?.dismissingPanGesture)
 
         containerView.setNeedsLayout()
         containerView.layoutIfNeeded()

@@ -72,6 +72,12 @@ extension ScrollingNC: HalfSheetPresentableProtocol {
     }
 }
 
+extension ScrollingVC: HalfSheetAppearanceProtocol {
+    var cornerRadius: CGFloat {
+        return 8.0
+    }
+}
+
 extension ScrollingVC: HalfSheetPresentableProtocol {
 
     var managedScrollView: UIScrollView? {
