@@ -29,5 +29,4 @@ public extension HalfSheetPresentationProtocol where Self: UIViewController {
         present(nc, animated: animated)
         return nc
     }
-
 }

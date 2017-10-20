@@ -171,11 +171,11 @@ public class PresentationViewController: UIPresentationController {
 
     var respondingVC: HalfSheetPresentableProtocol? {
 
-        if let nc = presentedViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetPresentableProtocol {
+        if let pc = presentedViewController as? HalfSheetPresentableProtocol {
             return pc
         }
 
-        if let pc = presentedViewController as? HalfSheetPresentableProtocol {
+        if let nc = presentedViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetPresentableProtocol {
             return pc
         }
 
