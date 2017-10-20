@@ -26,8 +26,8 @@ class ViewController: UIViewController, HalfSheetPresentationProtocol {
     }
     
     @IBAction func showScrollingNC() {
-        presentUsingHalfSheetInNC(
-            UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScrollingVC")
+        presentUsingHalfSheet(
+            UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScrollingNC")
         )
     }
 }
