@@ -207,6 +207,6 @@ extension HalfSheetPresentationManager: PresentationViewControllerDelegate {
     }
 
     internal var auxileryView: UIView? {
-        return (presentationController?.presentedViewController as? HalfSheetTopVCProviderProtocol)?.topVC.view
+        return (presentationController?.respondingVC as? HalfSheetTopVCProviderProtocol)?.topVC.view
     }
 }
