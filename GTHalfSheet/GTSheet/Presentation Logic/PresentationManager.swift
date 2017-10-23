@@ -142,7 +142,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         }
     }
 
-    public func sheetHeightDidChange() {
+    public func didChangeSheetHeight() {
         presentationController?.updateSheetHeight()
     }
 

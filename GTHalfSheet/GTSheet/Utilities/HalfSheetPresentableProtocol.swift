@@ -25,3 +25,9 @@ public protocol HalfSheetCompletionProtocol: class {
 public protocol HalfSheetAppearanceProtocol: class {
     var cornerRadius: CGFloat { get }
 }
+
+public extension HalfSheetPresentableProtocol where Self: UIViewController {
+    func didUpdateSheetHeight() {
+        (navigationController?.transitioningDelegate as? HalfSheetPresentationManager ?? transitioningDelegate as? HalfSheetPresentationManager)?.didChangeSheetHeight()
+    }
+}

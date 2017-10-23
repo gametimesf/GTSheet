@@ -23,12 +23,12 @@ class PlainVC: UIViewController, HalfSheetPresentableProtocol {
 
     @IBAction func becomeLarger() {
         sheetHeight = (sheetHeight ?? 0.0) + 30.0
-        (transitioningDelegate as? HalfSheetPresentationManager)?.sheetHeightDidChange()
+        didUpdateSheetHeight()
     }
 
     @IBAction func becomeSmaller() {
         sheetHeight = (sheetHeight ?? 0.0) - 30.0
-        (transitioningDelegate as? HalfSheetPresentationManager)?.sheetHeightDidChange()
+        didUpdateSheetHeight()
     }
 
     @IBAction func dismiss() {
