@@ -93,6 +93,8 @@ public class PresentationViewController: UIPresentationController {
             return
         }
 
+        (presentedViewController as? UINavigationController)?.delegate = self
+
         containerView.addSubview(backgroundView)
         containerView.addSubview(wrappingView)
         wrappingView.addSubview(presentedView)
