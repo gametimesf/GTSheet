@@ -41,14 +41,17 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
         func animate() {
 
-            presentedControllerView.transform = CGAffineTransform(
+            let finalTransform = CGAffineTransform(
                 translationX: 0,
-                y: presentedControllerView.bounds.size.height
+                y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
             )
+
+            presentedControllerView.transform = finalTransform
 
             weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = .identity
             weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
-            weakSelf?.managerDelegate?.auxileryView?.alpha = 0.0
+            weakSelf?.managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
+            weakSelf?.managerDelegate?.auxileryView?.transform = finalTransform
         }
 
         func complete(completed: Bool) {
@@ -82,10 +85,15 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
         weak var weakSelf = self
 
         func animate() {
-            presentedControllerView.transform = CGAffineTransform(translationX: 0, y: presentedControllerView.bounds.size.height)
+            let finalTransform = CGAffineTransform(
+                translationX: 0,
+                y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
+            )
+            presentedControllerView.transform = finalTransform
             weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = CGAffineTransform.identity
             weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
-            weakSelf?.managerDelegate?.auxileryView?.alpha = 0.0
+            weakSelf?.managerDelegate?.auxileryView?.alpha =  managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
+            weakSelf?.managerDelegate?.auxileryView?.transform =  managerDelegate?.auxileryTransition?.isSlide == true ? finalTransform : .identity
         }
 
         func complete(completed: Bool) {

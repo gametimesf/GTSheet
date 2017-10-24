@@ -26,14 +26,16 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         }
 
         let containerView = transitionContext.containerView
+        let initialTransform = CGAffineTransform(translationX: 0, y: containerView.bounds.size.height)
 
         wrappedPresentedView.frame = transitionContext.finalFrame(for: presentedController)
-        wrappedPresentedView.transform = CGAffineTransform(translationX: 0, y: containerView.bounds.size.height)
+        wrappedPresentedView.transform = initialTransform
 
         containerView.addSubview(wrappedPresentedView)
 
         managerDelegate?.presentationController?.backgroundView.alpha = 0.0
-        managerDelegate?.auxileryView?.alpha = 0.0
+        managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
+        managerDelegate?.auxileryView?.transform = managerDelegate?.auxileryTransition?.isSlide == true ? initialTransform : .identity
 
         weak var weakSelf = self
 
@@ -45,6 +47,7 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             wrappedPresentedView.transform = .identity
             weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
             weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 1.0
+            weakSelf?.managerDelegate?.auxileryView?.transform = .identity
 
             UIView.animateKeyframes(withDuration: duration, delay: 0, options:[], animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.6) {

@@ -209,4 +209,8 @@ extension HalfSheetPresentationManager: PresentationViewControllerDelegate {
     internal var auxileryView: UIView? {
         return (presentationController?.respondingVC as? HalfSheetTopVCProviderProtocol)?.topVC.view
     }
+
+    internal var auxileryTransition: HalfSheetTopVCTransitionStyle? {
+        return (presentationController?.respondingVC as? HalfSheetTopVCProviderProtocol)?.topVCTransitionStyle
+    }
 }

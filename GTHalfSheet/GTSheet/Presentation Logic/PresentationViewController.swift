@@ -11,6 +11,7 @@ import Foundation
 protocol PresentationViewControllerDelegate: class {
 
     var auxileryView: UIView? { get }
+    var auxileryTransition: HalfSheetTopVCTransitionStyle? { get }
 
     var dismissingPanGesture: VerticalPanGestureRecognizer { get }
     var contentDismissingPanGesture: UIPanGestureRecognizer { get }

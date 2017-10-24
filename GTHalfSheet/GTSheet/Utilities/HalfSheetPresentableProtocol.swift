@@ -8,6 +8,19 @@
 
 import UIKit
 
+public enum HalfSheetTopVCTransitionStyle {
+    case slide
+    case fade
+
+    var isSlide: Bool {
+        return self == .slide
+    }
+
+    var isFade: Bool {
+        return self == .fade
+    }
+}
+
 public protocol HalfSheetPresentableProtocol: class {
     weak var managedScrollView: UIScrollView? { get }
     var swipeToDismiss: Bool { get }
@@ -16,6 +29,7 @@ public protocol HalfSheetPresentableProtocol: class {
 
 public protocol HalfSheetTopVCProviderProtocol: class {
     var topVC: UIViewController { get }
+    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle { get }
 }
 
 public protocol HalfSheetCompletionProtocol: class {
