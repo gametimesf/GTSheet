@@ -44,6 +44,7 @@ public class PresentationViewController: UIPresentationController {
 
     var presentedViewConstraints: [NSLayoutConstraint] = []
     var wrappingViewConstraints: [NSLayoutConstraint] = []
+    var topViewConstraints: [NSLayoutConstraint] = []
 
     convenience init(config: Config) {
         self.init(
@@ -61,6 +62,9 @@ public class PresentationViewController: UIPresentationController {
             return
         }
 
+        managerDelegate?.auxileryView?.superview?.removeConstraints(topViewConstraints)
+        managerDelegate?.auxileryView?.removeConstraints(topViewConstraints)
+
         wrappingView.superview?.removeConstraints(wrappingViewConstraints)
         wrappingView.removeConstraints(wrappingViewConstraints)
 
@@ -72,6 +76,15 @@ public class PresentationViewController: UIPresentationController {
                 right: 0
             )
         )
+
+        topViewConstraints = managerDelegate?.auxileryView?.bindToSuperView(edgeInsets:
+            UIEdgeInsets(
+                top: 0,
+                left: 0,
+                bottom: (containerView?.bounds.height ?? 0.0) - getRequestedOffset(),
+                right: 0
+            )
+        ) ?? []
 
         let animator = UIViewPropertyAnimator(
             duration: 0.4,
@@ -215,7 +228,7 @@ public class PresentationViewController: UIPresentationController {
             aboveSubview: backgroundView
         )
 
-        view.bindToSuperView(edgeInsets:
+        topViewConstraints = view.bindToSuperView(edgeInsets:
             UIEdgeInsets(
                 top: 0,
                 left: 0,

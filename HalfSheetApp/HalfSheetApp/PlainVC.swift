@@ -9,7 +9,15 @@
 import UIKit
 import GTSheet
 
-class PlainVC: UIViewController, HalfSheetPresentableProtocol {
+class PlainVC: UIViewController, HalfSheetPresentableProtocol, HalfSheetTopVCProviderProtocol {
+
+    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle {
+        return .slide
+    }
+
+    lazy var topVC: UIViewController = {
+        return DismissBarVC.instance(tintColor: .white)
+    }()
 
     var sheetHeight: CGFloat? = 250.0
 

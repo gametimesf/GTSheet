@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Dismiss BarVC-->
+        <scene sceneID="cFs-cf-9hT">
+            <objects>
+                <viewController storyboardIdentifier="DismissBarVC" id="h5B-fa-pnc" customClass="DismissBarVC" customModule="GTSheet" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YGM-in-2Br">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f2w-p5-ys6">
+                                <rect key="frame" x="0.0" y="647" width="375" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="Glo-4B-GRR"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="18"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view alpha="0.25" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oez-Fr-Vle">
+                                <rect key="frame" x="165.5" y="661" width="44" height="6"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="44" id="Q0t-YQ-gMP"/>
+                                    <constraint firstAttribute="height" constant="6" id="ebx-J3-IM1"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="oez-Fr-Vle" firstAttribute="centerX" secondItem="YGM-in-2Br" secondAttribute="centerX" id="6GZ-6O-CQc"/>
+                            <constraint firstAttribute="bottom" secondItem="oez-Fr-Vle" secondAttribute="bottom" id="EjU-s5-Tqc"/>
+                            <constraint firstItem="f2w-p5-ys6" firstAttribute="leading" secondItem="i9m-Dv-cX3" secondAttribute="leading" id="Qjd-Qc-060"/>
+                            <constraint firstItem="i9m-Dv-cX3" firstAttribute="trailing" secondItem="f2w-p5-ys6" secondAttribute="trailing" id="aCP-nW-f6s"/>
+                            <constraint firstItem="i9m-Dv-cX3" firstAttribute="bottom" secondItem="f2w-p5-ys6" secondAttribute="bottom" constant="-44" id="ati-jW-Lf0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="i9m-Dv-cX3"/>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="f2w-p5-ys6" id="5Zw-K4-3l6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JIz-Er-pNn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="142" y="251"/>
+        </scene>
+    </scenes>
+</document>
