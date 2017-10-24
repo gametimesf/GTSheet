@@ -8,11 +8,11 @@
 
 import Foundation
 
-public protocol HalfSheetPresentationProtocol: class {
+public protocol HalfSheetPresentingProtocol: class {
     var transitionManager: HalfSheetPresentationManager! { get set }
 }
 
-public extension HalfSheetPresentationProtocol where Self: UIViewController {
+public extension HalfSheetPresentingProtocol where Self: UIViewController {
 
     func presentUsingHalfSheet(_ vc: UIViewController, animated: Bool = true) {
         transitionManager = HalfSheetPresentationManager()

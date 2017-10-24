@@ -9,7 +9,7 @@
 import UIKit
 import GTSheet
 
-class ViewController: UIViewController, HalfSheetPresentationProtocol {
+class ViewController: UIViewController, HalfSheetPresentingProtocol {
 
     var transitionManager: HalfSheetPresentationManager!
 
