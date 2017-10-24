@@ -10,8 +10,6 @@ import Foundation
 
 public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate {
 
-    fileprivate var observerContext = 0
-
     static let transitionDuration = 0.25
 
     let kAutomaticDismissBreakpoint: CGFloat = 0.25
@@ -101,52 +99,37 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         }
     }
 
-    override public func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard context == &observerContext else {
-            super.observeValue(
-                forKeyPath: keyPath,
-                of: object,
-                change: change,
-                context: context
-            )
+    public func updateForScrollPosition(yOffset: CGFloat) {
+
+        let fullOffset = yOffset + topOffset
+
+        guard fullOffset < 0 else {
             return
         }
 
-        var topOffset: CGFloat {
-            if #available(iOS 11.0, *) {
-                return presentationController?.managedScrollView?.safeAreaInsets.top ?? 0.0
-            } else {
-                return 0.0
-            }
+        let forwardTransform = CGAffineTransform(
+            translationX: 0,
+            y: -fullOffset
+        )
+
+        let backwardsTransform = CGAffineTransform(
+            translationX: 0,
+            y: fullOffset
+        )
+
+        presentationController?.wrappingView.transform = forwardTransform
+
+        if auxileryTransition?.isSlide == true {
+            auxileryView?.transform = forwardTransform
         }
 
-        if let offset = change?[.newKey] as? CGPoint, offset.y + topOffset < 0, observingScrollView {
-            let offset = offset.y + topOffset
+        presentationController?.managedScrollView?.transform = backwardsTransform
 
-            let forwardTransform = CGAffineTransform(
-                translationX: 0,
-                y: -offset
-            )
-
-            let backwardsTransform = CGAffineTransform(
-                translationX: 0,
-                y: offset
-            )
-
-            presentationController?.wrappingView.transform = forwardTransform
-
-            if auxileryTransition?.isSlide == true {
-                auxileryView?.transform = forwardTransform
-            }
-
-            presentationController?.managedScrollView?.transform = backwardsTransform
-
-            if -offset > 125.0 {
-                observingScrollView = false
-                interactive = false
-                HapticHelper.impact()
-                presentationController?.presentedViewController.dismiss(animated: true, completion:nil)
-            }
+        if -fullOffset > 125.0 {
+            observer = nil
+            interactive = false
+            HapticHelper.impact()
+            presentationController?.presentedViewController.dismiss(animated: true, completion:nil)
         }
     }
 
@@ -158,13 +141,16 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         return presentationController?.respondingVC?.swipeToDismiss ?? false
     }
 
+    private var topOffset: CGFloat {
+        if #available(iOS 11.0, *) {
+            return presentationController?.managedScrollView?.safeAreaInsets.top ?? 0.0
+        } else {
+            return 0.0
+        }
+    }
+
     deinit {
-        presentationController?.managedScrollView?.removeObserver(
-            self,
-            forKeyPath:
-            #keyPath(UIScrollView.contentOffset),
-            context: &observerContext
-        )
+        observer = nil
     }
 }
 
@@ -205,13 +191,15 @@ extension HalfSheetPresentationManager: PresentationViewControllerDelegate {
 
     internal func didPresent() {
 
-        if let scrollView = presentationController?.managedScrollView {
-            scrollView.addObserver(self, forKeyPath: #keyPath(UIScrollView.contentOffset), options: [.new, .old], context: &observerContext)
-        } else if let gesture = presentationController?.managerDelegate?.dismissingPanGesture {
-            presentationController?.presentedViewController.view.addGestureRecognizer(gesture)
+        guard let scrollView = presentationController?.managedScrollView else {
+            return
         }
 
-        observingScrollView = true
+        observer = scrollView.observe(\UIScrollView.contentOffset, options: [.new]) { [weak self] _, change in
+            if let offset = change.newValue, offset.y < 0 {
+                self?.updateForScrollPosition(yOffset: offset.y)
+            }
+        }
     }
 
     internal var auxileryView: UIView? {

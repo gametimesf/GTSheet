@@ -160,14 +160,6 @@ public class PresentationViewController: UIPresentationController {
             return PresentationViewController.kDefaultOffset
         }
 
-        var topOffset: CGFloat {
-            if #available(iOS 11.0, *) {
-                return managedScrollView?.safeAreaInsets.top ?? 0.0
-            } else {
-                return 0.0
-            }
-        }
-
         var expectedOffset: CGFloat {
 
             if let respondingVC = respondingVC {
@@ -204,6 +196,14 @@ public class PresentationViewController: UIPresentationController {
 
     private var containerHeight: CGFloat {
         return containerView?.bounds.height ?? 0.0
+    }
+
+    private var topOffset: CGFloat {
+        if #available(iOS 11.0, *) {
+            return managedScrollView?.safeAreaInsets.top ?? 0.0
+        } else {
+            return 0.0
+        }
     }
 
     weak var managedScrollView: UIScrollView? {
@@ -255,7 +255,7 @@ private extension UIView {
     }
 }
 
-extension PresentationViewController : UINavigationControllerDelegate {
+extension PresentationViewController: UINavigationControllerDelegate {
 
     public func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
         updateSheetHeight()
