@@ -123,15 +123,23 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         if let offset = change?[.newKey] as? CGPoint, offset.y + topOffset < 0, observingScrollView {
             let offset = offset.y + topOffset
 
-            presentationController?.wrappingView.transform = CGAffineTransform(
+            let forwardTransform = CGAffineTransform(
                 translationX: 0,
                 y: -offset
             )
 
-            presentationController?.managedScrollView?.transform = CGAffineTransform(
+            let backwardsTransform = CGAffineTransform(
                 translationX: 0,
                 y: offset
             )
+
+            presentationController?.wrappingView.transform = forwardTransform
+
+            if auxileryTransition?.isSlide == true {
+                auxileryView?.transform = forwardTransform
+            }
+
+            presentationController?.managedScrollView?.transform = backwardsTransform
 
             if -offset > 125.0 {
                 observingScrollView = false
