@@ -49,9 +49,6 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
         super.init()
 
-        contentDismissingPanGesture.require(toFail: dismissingPanGesture)
-        contentDismissingPanGesture.require(toFail: backgroundViewDismissTrigger)
-
         presentationAnimation.managerDelegate = self
         dismissalAnimation.managerDelegate = self
         dismissalAnimation.manager = self
@@ -62,7 +59,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     //
 
     @objc func handleDismissingTap() {
-        guard allowSwipeToDismiss else { return }
+        guard allowTapToDismiss else { return }
         interactive = false
         presentationController?.presentedViewController.dismiss(animated: true)
     }
@@ -138,7 +135,11 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     }
 
     private var allowSwipeToDismiss: Bool {
-        return presentationController?.respondingVC?.swipeToDismiss ?? false
+        return presentationController?.respondingVC?.dismissMethod.allowSwipe ?? false
+    }
+
+    private var allowTapToDismiss: Bool {
+        return presentationController?.respondingVC?.dismissMethod.allowTap ?? false
     }
 
     private var topOffset: CGFloat {

@@ -25,8 +25,8 @@ class PlainVC: UIViewController, HalfSheetPresentableProtocol, HalfSheetTopVCPro
         return nil
     }
 
-    var swipeToDismiss: Bool {
-        return true
+    var dismissMethod: [DismissMethod] {
+        return [.tap, .swipe]
     }
 
     @IBAction func becomeLarger() {
@@ -75,8 +75,8 @@ extension ScrollingNC: HalfSheetPresentableProtocol {
         return (viewControllers.last as? HalfSheetPresentableProtocol)?.managedScrollView
     }
 
-    var swipeToDismiss: Bool {
-        return true
+    var dismissMethod: [DismissMethod] {
+        return [.tap, .swipe]
     }
 
     var sheetHeight: CGFloat? {
@@ -96,8 +96,8 @@ extension ScrollingVC: HalfSheetPresentableProtocol {
         return tableView
     }
 
-    var swipeToDismiss: Bool {
-        return true
+    var dismissMethod: [DismissMethod] {
+        return [.tap, .swipe]
     }
 
     var sheetHeight: CGFloat? {
@@ -111,8 +111,8 @@ extension HatParentVC: HalfSheetPresentableProtocol {
         return nil
     }
 
-    var swipeToDismiss: Bool {
-        return true
+    var dismissMethod: [DismissMethod] {
+        return []
     }
 
     var sheetHeight: CGFloat? {

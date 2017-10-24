@@ -21,9 +21,24 @@ public enum HalfSheetTopVCTransitionStyle {
     }
 }
 
+public enum DismissMethod {
+    case tap
+    case swipe
+}
+
+internal extension Array where Element == DismissMethod {
+    internal var allowSwipe: Bool {
+        return contains(.swipe)
+    }
+
+    internal var allowTap: Bool {
+        return contains(.tap)
+    }
+}
+
 public protocol HalfSheetPresentableProtocol: class {
     weak var managedScrollView: UIScrollView? { get }
-    var swipeToDismiss: Bool { get }
+    var dismissMethod: [DismissMethod] { get }
     var sheetHeight: CGFloat? { get }
 }
 

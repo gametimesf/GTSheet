@@ -33,9 +33,7 @@ public class PresentationViewController: UIPresentationController {
 
     lazy var backgroundView: UIView = { [unowned self] in
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-        view.add(gestureRecognizer: self.managerDelegate?.backgroundViewDismissTrigger)
-        view.add(gestureRecognizer: self.managerDelegate?.contentDismissingPanGesture)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         view.alpha = 1.0
         return view
     }()
@@ -137,7 +135,9 @@ public class PresentationViewController: UIPresentationController {
             presentedView.round(corners: [.topLeft, .topRight], radius: appearanceProvider.cornerRadius)
         }
 
-        presentedView.add(gestureRecognizer: self.managerDelegate?.dismissingPanGesture)
+        presentedView.add(gestureRecognizer: managerDelegate?.dismissingPanGesture)
+        containerView.add(gestureRecognizer: managerDelegate?.backgroundViewDismissTrigger)
+        containerView.add(gestureRecognizer: managerDelegate?.contentDismissingPanGesture)
 
         containerView.setNeedsLayout()
         containerView.layoutIfNeeded()
