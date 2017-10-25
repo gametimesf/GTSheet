@@ -142,7 +142,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="u32-wX-VtC" firstAttribute="top" secondItem="Chl-GZ-bap" secondAttribute="top" constant="12" id="Hop-12-GjK"/>
                             <constraint firstItem="olM-xS-60l" firstAttribute="top" secondItem="Chl-GZ-bap" secondAttribute="top" constant="12" id="PwK-KM-hJp"/>
