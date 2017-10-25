@@ -168,7 +168,7 @@ public class PresentationViewController: UIPresentationController {
                     return containerHeight - PresentationViewController.kDefaultOffset
                 }
 
-                return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - topOffset + bottomSafeAreaOffset
+                return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - topOffset - bottomSafeAreaOffset
             }
 
             return PresentationViewController.kDefaultOffset
