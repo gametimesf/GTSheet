@@ -164,11 +164,11 @@ public class PresentationViewController: UIPresentationController {
 
             if let respondingVC = respondingVC {
 
-                var defaultHeight: CGFloat {
-                    return containerHeight - PresentationViewController.kDefaultOffset
+                if #available(iOS 11.0, *) {
+                    return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - bottomSafeAreaInset
+                } else {
+                    // Fallback on earlier versions
                 }
-
-                return containerHeight - (respondingVC.sheetHeight ?? defaultHeight)
             }
 
             return PresentationViewController.kDefaultOffset
@@ -192,6 +192,19 @@ public class PresentationViewController: UIPresentationController {
 
     override public var shouldPresentInFullscreen: Bool {
         return false
+    }
+
+    var bottomSafeAreaInset: CGFloat {
+        if #available(iOS 11.0, *) {
+            // todo: figure out a way to receive safe area updates in a Presentation VC
+            return UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0
+        } else {
+            return 0.0
+        }
+    }
+
+    var defaultHeight: CGFloat {
+        return containerHeight - PresentationViewController.kDefaultOffset
     }
 
     private var containerHeight: CGFloat {

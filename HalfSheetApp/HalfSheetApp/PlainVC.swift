@@ -80,7 +80,7 @@ extension ScrollingNC: HalfSheetPresentableProtocol {
     }
 
     var sheetHeight: CGFloat? {
-        return 500.0
+        return 396.0
     }
 }
 
