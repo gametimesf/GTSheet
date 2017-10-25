@@ -14,7 +14,7 @@
         <scene sceneID="cFs-cf-9hT">
             <objects>
                 <viewController storyboardIdentifier="DismissBarVC" id="h5B-fa-pnc" customClass="DismissBarVC" customModule="GTSheet" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YGM-in-2Br">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="YGM-in-2Br">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>

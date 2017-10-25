@@ -136,7 +136,7 @@ public class PresentationViewController: UIPresentationController {
         }
 
         presentedView.add(gestureRecognizer: managerDelegate?.dismissingPanGesture)
-        containerView.add(gestureRecognizer: managerDelegate?.backgroundViewDismissTrigger)
+        backgroundView.add(gestureRecognizer: managerDelegate?.backgroundViewDismissTrigger)
         containerView.add(gestureRecognizer: managerDelegate?.contentDismissingPanGesture)
 
         containerView.setNeedsLayout()
