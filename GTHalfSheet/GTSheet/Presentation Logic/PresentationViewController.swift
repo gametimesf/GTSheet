@@ -168,7 +168,7 @@ public class PresentationViewController: UIPresentationController {
                     return containerHeight - PresentationViewController.kDefaultOffset
                 }
 
-                return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - topOffset
+                return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - topOffset + bottomSafeAreaOffset
             }
 
             return PresentationViewController.kDefaultOffset
@@ -201,6 +201,14 @@ public class PresentationViewController: UIPresentationController {
     private var topOffset: CGFloat {
         if #available(iOS 11.0, *) {
             return managedScrollView?.safeAreaInsets.top ?? 0.0
+        } else {
+            return 0.0
+        }
+    }
+
+    private var bottomSafeAreaOffset: CGFloat {
+        if #available(iOS 11.0, *) {
+            return managedScrollView?.safeAreaInsets.bottom ?? 0.0
         } else {
             return 0.0
         }

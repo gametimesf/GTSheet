@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13526" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -7,6 +7,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,10 +15,6 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HalfSheetApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AaO-U7-fLZ"/>
-                        <viewControllerLayoutGuide type="bottom" id="5xO-yw-kOs"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -79,13 +76,22 @@
                                     <constraint firstAttribute="width" constant="300" id="VZ0-zc-rmr"/>
                                 </constraints>
                             </stackView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lp5-R4-npe">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items/>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="jj8-Qe-9IU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FAF-f7-DYl"/>
+                            <constraint firstItem="jj8-Qe-9IU" firstAttribute="centerX" secondItem="4dF-TY-PW0" secondAttribute="centerX" id="FAF-f7-DYl"/>
                             <constraint firstItem="jj8-Qe-9IU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Fxq-6k-gR7"/>
+                            <constraint firstItem="4dF-TY-PW0" firstAttribute="bottom" secondItem="Lp5-R4-npe" secondAttribute="bottom" id="ONa-Zr-jaD"/>
+                            <constraint firstItem="4dF-TY-PW0" firstAttribute="trailing" secondItem="Lp5-R4-npe" secondAttribute="trailing" id="idr-XC-xpm"/>
+                            <constraint firstItem="Lp5-R4-npe" firstAttribute="leading" secondItem="4dF-TY-PW0" secondAttribute="leading" id="vyi-tK-h8U"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="4dF-TY-PW0"/>
                     </view>
+                    <tabBarItem key="tabBarItem" systemItem="featured" id="6s1-9x-bOM"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -95,10 +101,6 @@
         <scene sceneID="Mte-AN-uJr">
             <objects>
                 <viewController storyboardIdentifier="PlainVC" id="jG7-ad-sUD" customClass="PlainVC" customModule="HalfSheetApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hGv-ro-n3t"/>
-                        <viewControllerLayoutGuide type="bottom" id="dpz-Pr-jpF"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="gZo-yn-PrK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -140,15 +142,16 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.75" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="u32-wX-VtC" firstAttribute="top" secondItem="hGv-ro-n3t" secondAttribute="bottom" constant="12" id="Hop-12-GjK"/>
-                            <constraint firstItem="olM-xS-60l" firstAttribute="top" secondItem="hGv-ro-n3t" secondAttribute="bottom" constant="12" id="PwK-KM-hJp"/>
+                            <constraint firstItem="u32-wX-VtC" firstAttribute="top" secondItem="Chl-GZ-bap" secondAttribute="top" constant="12" id="Hop-12-GjK"/>
+                            <constraint firstItem="olM-xS-60l" firstAttribute="top" secondItem="Chl-GZ-bap" secondAttribute="top" constant="12" id="PwK-KM-hJp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="u32-wX-VtC" secondAttribute="trailing" constant="10" id="Qq0-ce-sSk"/>
                             <constraint firstItem="MQf-xi-c4y" firstAttribute="centerY" secondItem="gZo-yn-PrK" secondAttribute="centerY" id="jLW-Dc-hbm"/>
                             <constraint firstItem="olM-xS-60l" firstAttribute="leading" secondItem="gZo-yn-PrK" secondAttribute="leadingMargin" id="lNU-74-xG2"/>
-                            <constraint firstItem="MQf-xi-c4y" firstAttribute="centerX" secondItem="gZo-yn-PrK" secondAttribute="centerX" id="xrh-zv-OYk"/>
+                            <constraint firstItem="MQf-xi-c4y" firstAttribute="centerX" secondItem="Chl-GZ-bap" secondAttribute="centerX" id="xrh-zv-OYk"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="Chl-GZ-bap"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ebj-1H-KzO" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -159,10 +162,6 @@
         <scene sceneID="Ynv-uN-9AG">
             <objects>
                 <viewController storyboardIdentifier="HatVC" id="uQe-Ny-JPw" customClass="HatVC" customModule="HalfSheetApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Svy-Ra-Olv"/>
-                        <viewControllerLayoutGuide type="bottom" id="Gdq-EF-5tN"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Kz7-pH-zDG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -191,11 +190,12 @@ HAT
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Gdq-EF-5tN" firstAttribute="top" secondItem="Ysi-EG-Fse" secondAttribute="bottom" id="8js-2t-6x6"/>
+                            <constraint firstItem="zbF-Tb-Dhf" firstAttribute="bottom" secondItem="Ysi-EG-Fse" secondAttribute="bottom" id="8js-2t-6x6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Ysi-EG-Fse" secondAttribute="trailing" constant="32" id="Hm8-l2-oyS"/>
-                            <constraint firstItem="Ysi-EG-Fse" firstAttribute="top" secondItem="Svy-Ra-Olv" secondAttribute="bottom" constant="32" id="TdH-WE-gjM"/>
+                            <constraint firstItem="Ysi-EG-Fse" firstAttribute="top" secondItem="zbF-Tb-Dhf" secondAttribute="top" constant="32" id="TdH-WE-gjM"/>
                             <constraint firstItem="Ysi-EG-Fse" firstAttribute="leading" secondItem="Kz7-pH-zDG" secondAttribute="leadingMargin" constant="32" id="io4-nt-S3M"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="zbF-Tb-Dhf"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5xf-qA-l72" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -502,10 +502,6 @@ HAT
         <scene sceneID="nOI-va-0XD">
             <objects>
                 <viewController storyboardIdentifier="HatParentVC" id="p1q-8m-xl7" customClass="HatParentVC" customModule="HalfSheetApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="HnW-Gl-TXp"/>
-                        <viewControllerLayoutGuide type="bottom" id="T8F-vQ-ZD7"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="L3Y-BQ-jHJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -531,11 +527,12 @@ HAT
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="AD4-lf-2U4" firstAttribute="centerX" secondItem="L3Y-BQ-jHJ" secondAttribute="centerX" id="Hsr-f5-VDU"/>
-                            <constraint firstItem="AD4-lf-2U4" firstAttribute="top" secondItem="HnW-Gl-TXp" secondAttribute="bottom" constant="20" id="X8o-DY-sRK"/>
-                            <constraint firstItem="kNE-WO-jnS" firstAttribute="centerX" secondItem="L3Y-BQ-jHJ" secondAttribute="centerX" id="uuF-za-UqE"/>
+                            <constraint firstItem="AD4-lf-2U4" firstAttribute="centerX" secondItem="UUB-D6-Ffi" secondAttribute="centerX" id="Hsr-f5-VDU"/>
+                            <constraint firstItem="AD4-lf-2U4" firstAttribute="top" secondItem="UUB-D6-Ffi" secondAttribute="top" constant="20" id="X8o-DY-sRK"/>
+                            <constraint firstItem="kNE-WO-jnS" firstAttribute="centerX" secondItem="UUB-D6-Ffi" secondAttribute="centerX" id="uuF-za-UqE"/>
                             <constraint firstItem="kNE-WO-jnS" firstAttribute="centerY" secondItem="L3Y-BQ-jHJ" secondAttribute="centerY" id="vts-GJ-8Th"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="UUB-D6-Ffi"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r0Z-pQ-fe3" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -37,7 +37,7 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
         managerDelegate?.auxileryView?.transform = managerDelegate?.auxileryTransition?.isSlide == true ? initialTransform : .identity
 
-        weak var weakSelf = self
+        weak var weakDelegate = self.managerDelegate
 
         let duration = transitionDuration(using: transitionContext)
         let timing = UISpringTimingParameters(dampingRatio: 1)
@@ -45,20 +45,22 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 
         func animate() {
             wrappedPresentedView.transform = .identity
-            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = CGAffineTransform(scaleX: 0.94, y: 0.94)
-            weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 1.0
-            weakSelf?.managerDelegate?.auxileryView?.transform = .identity
+            weakDelegate?.presentationController?.presentingViewController.view.layer.transform = CATransform3DMakeAffineTransform(
+                CGAffineTransform(scaleX: 0.92, y: 0.92)
+            )
+            weakDelegate?.presentationController?.backgroundView.alpha = 1.0
+            weakDelegate?.auxileryView?.transform = .identity
 
             UIView.animateKeyframes(withDuration: duration, delay: 0, options:[], animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.6) {
-                    weakSelf?.managerDelegate?.auxileryView?.alpha = 1.0
+                    weakDelegate?.auxileryView?.alpha = 1.0
                 }
             })
         }
 
         func complete(completed: Bool) {
             transitionContext.completeTransition(completed)
-            weakSelf?.managerDelegate?.didPresent()
+            weakDelegate?.didPresent()
         }
 
         animator.addAnimations(animate)
