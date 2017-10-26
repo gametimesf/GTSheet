@@ -130,6 +130,11 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         }
     }
 
+    internal func dismissComplete() {
+        (presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
+        presentationController = nil
+    }
+    
     public func didChangeSheetHeight() {
         presentationController?.updateSheetHeight()
     }
@@ -173,13 +178,8 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
 
         assert(presented.modalPresentationStyle == .custom, "you must use custom presentation style for half sheets (and any custom transition")
 
-        presentationController = PresentationViewController(config:
-            PresentationViewController.Config(
-                vcs: (
-                    presenting: source,
-                    presented: presented
-                )
-            )
+        presentationController = PresentationViewController(
+            presentedViewController: presented, presenting: source
         )
 
         presentationController?.managerDelegate = self

@@ -44,13 +44,6 @@ public class PresentationViewController: UIPresentationController {
     var wrappingViewConstraints: [NSLayoutConstraint] = []
     var topViewConstraints: [NSLayoutConstraint] = []
 
-    convenience init(config: Config) {
-        self.init(
-            presentedViewController: config.vcs.presented,
-            presenting: config.vcs.presenting
-        )
-    }
-
     public func updateSheetHeight() {
 
         guard

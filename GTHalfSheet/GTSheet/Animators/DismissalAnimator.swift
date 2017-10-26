@@ -10,26 +10,14 @@ import Foundation
 
 public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
 
-    var manager: HalfSheetPresentationManager?
-
-    var context: UIViewControllerContextTransitioning?
-
-	public var dismissingPanGesture: UIGestureRecognizer?
-
+    weak var manager: HalfSheetPresentationManager?
     weak var managerDelegate: PresentationViewControllerDelegate?
-
-    private var _animator: AnyObject?
 
     var animator: UIViewPropertyAnimator?
 
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         let interactive = (manager?.interactive ?? false)
         return HalfSheetPresentationManager.transitionDuration * (interactive ? 2.5 : 1)
-    }
-
-    override public func startInteractiveTransition(_ transitionContext: UIViewControllerContextTransitioning) {
-        super.startInteractiveTransition(transitionContext)
-        context = transitionContext
     }
 
     public func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
@@ -61,7 +49,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
             transitionContext.completeTransition(finished)
 
             if finished {
-                (weakSelf?.managerDelegate?.presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
+                weakSelf?.manager?.dismissComplete()
             }
         }
 
@@ -103,8 +91,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
             transitionContext.completeTransition(finished)
 
             if finished {
-                (weakSelf?.managerDelegate?.presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
-                weakSelf?.manager = nil
+                weakSelf?.manager?.dismissComplete()
             }
         }
 

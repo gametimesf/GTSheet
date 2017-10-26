@@ -13,7 +13,6 @@
 		6FB0B4EB1F75860800A4F6D4 /* VerticalPanGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E31F75860700A4F6D4 /* VerticalPanGestureRecognizer.swift */; };
 		6FB0B4EC1F75860800A4F6D4 /* PresentationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E41F75860700A4F6D4 /* PresentationViewController.swift */; };
 		6FB0B4ED1F75860800A4F6D4 /* HalfSheetPresentableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E51F75860700A4F6D4 /* HalfSheetPresentableProtocol.swift */; };
-		6FB0B4EE1F75860800A4F6D4 /* PresentationManagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E61F75860700A4F6D4 /* PresentationManagerConfig.swift */; };
 		6FB0B4EF1F75860800A4F6D4 /* DismissalAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E71F75860700A4F6D4 /* DismissalAnimator.swift */; };
 		6FB0B4F01F75860800A4F6D4 /* PresentationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4E81F75860700A4F6D4 /* PresentationManager.swift */; };
 		6FB0B4F21F75860800A4F6D4 /* PresentationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FB0B4EA1F75860800A4F6D4 /* PresentationAnimator.swift */; };
@@ -30,7 +29,6 @@
 		6FB0B4E31F75860700A4F6D4 /* VerticalPanGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalPanGestureRecognizer.swift; sourceTree = "<group>"; };
 		6FB0B4E41F75860700A4F6D4 /* PresentationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationViewController.swift; sourceTree = "<group>"; };
 		6FB0B4E51F75860700A4F6D4 /* HalfSheetPresentableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HalfSheetPresentableProtocol.swift; sourceTree = "<group>"; };
-		6FB0B4E61F75860700A4F6D4 /* PresentationManagerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManagerConfig.swift; sourceTree = "<group>"; };
 		6FB0B4E71F75860700A4F6D4 /* DismissalAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissalAnimator.swift; sourceTree = "<group>"; };
 		6FB0B4E81F75860700A4F6D4 /* PresentationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationManager.swift; sourceTree = "<group>"; };
 		6FB0B4EA1F75860800A4F6D4 /* PresentationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationAnimator.swift; sourceTree = "<group>"; };
@@ -63,7 +61,6 @@
 			children = (
 				6FB0B4E41F75860700A4F6D4 /* PresentationViewController.swift */,
 				6FB0B4E81F75860700A4F6D4 /* PresentationManager.swift */,
-				6FB0B4E61F75860700A4F6D4 /* PresentationManagerConfig.swift */,
 			);
 			path = "Presentation Logic";
 			sourceTree = "<group>";
@@ -202,7 +199,6 @@
 				6FB0B4EF1F75860800A4F6D4 /* DismissalAnimator.swift in Sources */,
 				6FB0B4F01F75860800A4F6D4 /* PresentationManager.swift in Sources */,
 				6FB0B4EC1F75860800A4F6D4 /* PresentationViewController.swift in Sources */,
-				6FB0B4EE1F75860800A4F6D4 /* PresentationManagerConfig.swift in Sources */,
 				6FB0B4EB1F75860800A4F6D4 /* VerticalPanGestureRecognizer.swift in Sources */,
 				6FB0B4F21F75860800A4F6D4 /* PresentationAnimator.swift in Sources */,
 				6FE85D3E1F75BC7800304BCA /* Utilities.swift in Sources */,
