@@ -1,5 +1,5 @@
 # GTSheet
-GTSheet is a a simple, easy to integrate solution for presenting view controllers in bottom sheet. We handle all the hard work for you-- transitions, gestures, taps and more are all automatically provided by the library. Styling, however, is intentionally left out, allowing you to integrate your own design language with easy.
+GTSheet is a a simple, easy to integrate solution for presenting `UIViewController` in bottom sheet. We handle all the hard work for you-- transitions, gestures, taps and more are all automatically provided by the library. Styling, however, is intentionally left out, allowing you to integrate your own design language with ease.
 
 ## Getting Started
 
