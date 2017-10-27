@@ -160,7 +160,7 @@ public class PresentationViewController: UIPresentationController {
                 if #available(iOS 11.0, *) {
                     return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - bottomSafeAreaInset
                 } else {
-                    // Fallback on earlier versions
+                    return containerHeight - (respondingVC.sheetHeight ?? defaultHeight)
                 }
             }
 

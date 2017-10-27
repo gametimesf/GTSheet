@@ -131,6 +131,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     }
 
     internal func dismissComplete() {
+        observer = nil
         (presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
         presentationController = nil
     }

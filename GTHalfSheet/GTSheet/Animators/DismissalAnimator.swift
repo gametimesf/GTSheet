@@ -88,11 +88,11 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
             let finished = completed && !transitionContext.transitionWasCancelled
 
-            transitionContext.completeTransition(finished)
-
             if finished {
                 weakSelf?.manager?.dismissComplete()
             }
+
+            transitionContext.completeTransition(finished)
         }
 
         let duration = transitionDuration(using: transitionContext)
