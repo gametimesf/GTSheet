@@ -183,6 +183,19 @@ public class PresentationViewController: UIPresentationController {
         return nil
     }
 
+    var topVCProvider: HalfSheetTopVCProviderProtocol? {
+
+        if let pc = presentedViewController as? HalfSheetTopVCProviderProtocol {
+            return pc
+        }
+
+        if let nc = presentedViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetTopVCProviderProtocol {
+            return pc
+        }
+
+        return nil
+    }
+
     override public var shouldPresentInFullscreen: Bool {
         return false
     }
