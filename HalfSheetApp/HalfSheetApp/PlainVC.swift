@@ -67,7 +67,17 @@ class HatParentVC: UIViewController, HalfSheetTopVCProviderProtocol {
 
 class HatVC: UIViewController { }
 class ScrollingVC: UITableViewController { }
-class ScrollingNC: UINavigationController { }
+
+class ScrollingNC: UINavigationController, HalfSheetTopVCProviderProtocol {
+
+    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle {
+        return .slide
+    }
+
+    lazy var topVC: UIViewController = {
+        return DismissBarVC.instance(tintColor: .white)
+    }()
+}
 
 extension ScrollingNC: HalfSheetPresentableProtocol {
 
