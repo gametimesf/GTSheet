@@ -59,14 +59,26 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     //
 
     @objc func handleDismissingTap() {
-        guard allowTapToDismiss, managedScrollView?.isScrolling == false else { return }
+
+        guard
+            allowTapToDismiss,
+            managedScrollView != nil ? managedScrollView?.isScrolling == false : true
+        else {
+            return
+        }
+
         interactive = false
         presentationController?.presentedViewController.dismiss(animated: true)
     }
 
     @objc func handleDismissingPan(_ pan: UIPanGestureRecognizer) {
 
-        guard allowSwipeToDismiss, managedScrollView?.isScrolling == false else { return }
+        guard
+            allowTapToDismiss,
+            managedScrollView != nil ? managedScrollView?.isScrolling == false : true
+        else {
+            return
+        }
 
         let translation = pan.translation(in: pan.view!)
         let velocity    = pan.velocity(in: pan.view!)
