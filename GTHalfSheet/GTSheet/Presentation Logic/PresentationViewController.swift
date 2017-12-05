@@ -142,7 +142,7 @@ public class PresentationViewController: UIPresentationController {
 
     override public func dismissalTransitionDidEnd(_ completed: Bool) {
         guard completed else { return }
-        presentingViewController.view.transform = CGAffineTransform.identity
+        presentingViewController.view.layer.transform = .identity
         managerDelegate?.auxileryView?.removeFromSuperview()
         backgroundView.removeFromSuperview()
     }

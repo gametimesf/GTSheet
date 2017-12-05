@@ -29,13 +29,13 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let initialTransform = CGAffineTransform(translationX: 0, y: containerView.bounds.size.height)
 
         wrappedPresentedView.frame = transitionContext.finalFrame(for: presentedController)
-        wrappedPresentedView.transform = initialTransform
+        wrappedPresentedView.layer.transform = initialTransform.as3D
 
         containerView.addSubview(wrappedPresentedView)
 
         managerDelegate?.presentationController?.backgroundView.alpha = 0.0
         managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
-        managerDelegate?.auxileryView?.transform = managerDelegate?.auxileryTransition?.isSlide == true ? initialTransform : .identity
+        managerDelegate?.auxileryView?.layer.transform = managerDelegate?.auxileryTransition?.isSlide == true ? initialTransform.as3D : .identity
 
         weak var weakDelegate = self.managerDelegate
 
@@ -44,12 +44,11 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         let animator = UIViewPropertyAnimator(duration: duration * 2, timingParameters: timing)
 
         func animate() {
-            wrappedPresentedView.transform = .identity
-            weakDelegate?.presentationController?.presentingViewController.view.layer.transform = CATransform3DMakeAffineTransform(
-                CGAffineTransform(scaleX: 0.92, y: 0.92)
-            )
+            wrappedPresentedView.layer.transform = .identity
+            weakDelegate?.presentationController?.presentingViewController.view.layer.transform = CGAffineTransform(scaleX: 0.92, y: 0.92).as3D
+
             weakDelegate?.presentationController?.backgroundView.alpha = 1.0
-            weakDelegate?.auxileryView?.transform = .identity
+            weakDelegate?.auxileryView?.layer.transform = .identity
 
             UIView.animateKeyframes(withDuration: duration, delay: 0, options:[], animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0.4, relativeDuration: 0.6) {

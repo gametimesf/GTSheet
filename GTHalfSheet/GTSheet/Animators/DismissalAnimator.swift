@@ -34,12 +34,12 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
                 y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
             )
 
-            presentedControllerView.transform = finalTransform
+            presentedControllerView.layer.transform = finalTransform.as3D
 
-            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = .identity
+            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.layer.transform = .identity
             weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
             weakSelf?.managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
-            weakSelf?.managerDelegate?.auxileryView?.transform = finalTransform
+            weakSelf?.managerDelegate?.auxileryView?.layer.transform = finalTransform.as3D
         }
 
         func complete(completed: Bool) {
@@ -77,11 +77,11 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
                 translationX: 0,
                 y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
             )
-            presentedControllerView.transform = finalTransform
-            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.transform = CGAffineTransform.identity
+            presentedControllerView.layer.transform = finalTransform.as3D
+            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.layer.transform = .identity
             weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
             weakSelf?.managerDelegate?.auxileryView?.alpha =  managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
-            weakSelf?.managerDelegate?.auxileryView?.transform =  managerDelegate?.auxileryTransition?.isSlide == true ? finalTransform : .identity
+            weakSelf?.managerDelegate?.auxileryView?.layer.transform =  managerDelegate?.auxileryTransition?.isSlide == true ? finalTransform.as3D : .identity
         }
 
         func complete(completed: Bool) {

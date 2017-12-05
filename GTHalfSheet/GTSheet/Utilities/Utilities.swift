@@ -49,6 +49,20 @@ extension UIView {
 
 }
 
+extension CGAffineTransform {
+
+    var as3D: CATransform3D {
+        return CATransform3DMakeAffineTransform(self)
+    }
+}
+
+extension CATransform3D {
+
+    static var identity: CATransform3D {
+        return CATransform3DIdentity
+    }
+}
+
 struct HapticHelper {
 
     static func warmUp() {

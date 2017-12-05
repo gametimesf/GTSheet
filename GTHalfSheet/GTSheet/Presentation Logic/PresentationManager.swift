@@ -114,13 +114,13 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
             y: fullOffset
         )
 
-        presentationController?.wrappingView.transform = forwardTransform
+        presentationController?.wrappingView.layer.transform = forwardTransform.as3D
 
         if auxileryTransition?.isSlide == true {
             auxileryView?.transform = forwardTransform
         }
 
-        presentationController?.managedScrollView?.transform = backwardsTransform
+        presentationController?.managedScrollView?.layer.transform = backwardsTransform.as3D
 
         if -fullOffset > 125.0 {
             observer = nil
