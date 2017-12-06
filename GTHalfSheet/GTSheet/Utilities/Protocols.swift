@@ -12,11 +12,11 @@ public enum HalfSheetTopVCTransitionStyle {
     case slide
     case fade
 
-    var isSlide: Bool {
+    internal var isSlide: Bool {
         return self == .slide
     }
 
-    var isFade: Bool {
+    internal var isFade: Bool {
         return self == .fade
     }
 }

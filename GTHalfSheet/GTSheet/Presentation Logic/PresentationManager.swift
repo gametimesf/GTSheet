@@ -10,14 +10,8 @@ import Foundation
 
 public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate {
 
-    static let transitionDuration = 0.25
-
-    let kAutomaticDismissBreakpoint: CGFloat = 0.25
-
     internal var interactive: Bool = false
     private var observer: NSKeyValueObservation?
-
-    fileprivate var observingScrollView: Bool = false
 
     public private(set) lazy var dismissingPanGesture: VerticalPanGestureRecognizer = { [unowned self] in
         let gesture = VerticalPanGestureRecognizer()
@@ -96,7 +90,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         case .changed:
             dismissalAnimation.update(d)
 
-            if max(translation.y, 0) > 125.0 {
+            if max(translation.y, 0) > TransitionConfiguration.Dismissal.dismissBreakpoint {
                 interactive = false
                 pan.isEnabled = false
                 HapticHelper.impact()
@@ -104,7 +98,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
             }
         default:
             interactive = false
-            d > kAutomaticDismissBreakpoint ? dismissalAnimation.finish() : dismissalAnimation.cancel()
+            translation.y > TransitionConfiguration.Dismissal.dismissBreakpoint ? dismissalAnimation.finish() : dismissalAnimation.cancel()
         }
     }
 
@@ -134,7 +128,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
         presentationController?.managedScrollView?.layer.transform = backwardsTransform.as3D
 
-        if -fullOffset > 125.0 {
+        if -fullOffset > TransitionConfiguration.Dismissal.dismissBreakpoint {
             observer = nil
             interactive = false
             HapticHelper.impact()

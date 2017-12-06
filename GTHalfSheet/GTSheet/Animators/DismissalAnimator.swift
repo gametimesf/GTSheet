@@ -17,7 +17,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         let interactive = (manager?.interactive ?? false)
-        return HalfSheetPresentationManager.transitionDuration * (interactive ? 2.5 : 1)
+        return TransitionConfiguration.Dismissal.duration * (interactive ? 2.5 : 1)
     }
 
     public func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {

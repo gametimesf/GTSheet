@@ -13,7 +13,7 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     weak var managerDelegate: PresentationViewControllerDelegate?
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return HalfSheetPresentationManager.transitionDuration
+        return TransitionConfiguration.Presentation.duration
     }
 
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
