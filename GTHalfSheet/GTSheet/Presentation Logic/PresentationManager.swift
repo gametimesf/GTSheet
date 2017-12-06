@@ -164,7 +164,7 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         if #available(iOS 11.0, *) {
             return presentationController?.managedScrollView?.safeAreaInsets.top ?? 0.0
         } else {
-            return 0.0
+            return presentationController?.managedScrollView?.contentInset.top ?? 0.0
         }
     }
 
