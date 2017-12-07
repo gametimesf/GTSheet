@@ -8,28 +8,9 @@
 
 import Foundation
 
-protocol PresentationViewControllerDelegate: class {
+public class PresentationViewController: UIPresentationController, AnimatorConvenience {
 
-    var auxileryView: UIView? { get }
-    var auxileryTransition: HalfSheetTopVCTransitionStyle? { get }
-
-    var dismissingPanGesture: VerticalPanGestureRecognizer { get }
-    var contentDismissingPanGesture: UIPanGestureRecognizer { get }
-    var backgroundViewDismissTrigger: UITapGestureRecognizer { get }
-
-    var presentationController: PresentationViewController? { get }
-    
-    func didPresent()
-
-    func handleDismissingTap()
-    func handleDismissingPan(_ pan: UIPanGestureRecognizer)
-}
-
-public class PresentationViewController: UIPresentationController {
-
-    public static let kDefaultOffset: CGFloat = 104.0
-
-    weak var managerDelegate: PresentationViewControllerDelegate?
+    weak var manager: HalfSheetPresentationManager?
 
     lazy var backgroundView: UIView = { [unowned self] in
         let view = UIView()
@@ -44,6 +25,11 @@ public class PresentationViewController: UIPresentationController {
     var wrappingViewConstraints: [NSLayoutConstraint] = []
     var topViewConstraints: [NSLayoutConstraint] = []
 
+    public init(presentedViewController: UIViewController, presentingViewController: UIViewController?, manager: HalfSheetPresentationManager) {
+        super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
+        self.manager = manager
+    }
+
     public func updateSheetHeight() {
 
         guard
@@ -53,28 +39,18 @@ public class PresentationViewController: UIPresentationController {
             return
         }
 
-        managerDelegate?.auxileryView?.superview?.removeConstraints(topViewConstraints)
-        managerDelegate?.auxileryView?.removeConstraints(topViewConstraints)
+        manager?.auxileryView?.superview?.removeConstraints(topViewConstraints)
+        manager?.auxileryView?.removeConstraints(topViewConstraints)
 
         wrappingView.superview?.removeConstraints(wrappingViewConstraints)
         wrappingView.removeConstraints(wrappingViewConstraints)
 
         wrappingViewConstraints = wrappingView.bindToSuperView(edgeInsets:
-            UIEdgeInsets(
-                top: getRequestedOffset(),
-                left: 0,
-                bottom: 0,
-                right: 0
-            )
+            UIEdgeInsets(withTop: topContainerOffset)
         )
 
-        topViewConstraints = managerDelegate?.auxileryView?.bindToSuperView(edgeInsets:
-            UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: (containerView?.bounds.height ?? 0.0) - getRequestedOffset(),
-                right: 0
-            )
+        topViewConstraints = manager?.auxileryView?.bindToSuperView(edgeInsets:
+            UIEdgeInsets(withBottom: containerHeight - topContainerOffset)
         ) ?? []
 
         let animator = UIViewPropertyAnimator(
@@ -104,7 +80,7 @@ public class PresentationViewController: UIPresentationController {
         containerView.addSubview(wrappingView)
         wrappingView.addSubview(presentedView)
 
-        if let view = managerDelegate?.auxileryView {
+        if let view = auxileryView {
             addTopContent(view: view)
         }
 
@@ -115,12 +91,7 @@ public class PresentationViewController: UIPresentationController {
         wrappingView.removeConstraints(wrappingViewConstraints)
 
         wrappingViewConstraints = wrappingView.bindToSuperView(edgeInsets:
-            UIEdgeInsets(
-                top: getRequestedOffset(),
-                left: 0,
-                bottom: 0,
-                right: 0
-            )
+            UIEdgeInsets(withTop: topContainerOffset)
         )
 
         if let appearanceProvider = respondingVC as? HalfSheetAppearanceProtocol {
@@ -128,72 +99,37 @@ public class PresentationViewController: UIPresentationController {
             presentedView.round(corners: [.topLeft, .topRight], radius: appearanceProvider.cornerRadius)
         }
 
-        presentedView.add(gestureRecognizer: managerDelegate?.dismissingPanGesture)
-        backgroundView.add(gestureRecognizer: managerDelegate?.backgroundViewDismissTrigger)
-        backgroundView.add(gestureRecognizer: managerDelegate?.contentDismissingPanGesture)
+        presentedView.add(gestureRecognizer: manager?.dismissingPanGesture)
+        backgroundView.add(gestureRecognizer: manager?.backgroundViewDismissTrigger)
+        backgroundView.add(gestureRecognizer: manager?.contentDismissingPanGesture)
 
         containerView.setNeedsLayout()
         containerView.layoutIfNeeded()
     }
 
-    override public func presentationTransitionDidEnd(_ completed: Bool) {
-		guard !completed else { return }
-    }
-
     override public func dismissalTransitionDidEnd(_ completed: Bool) {
         guard completed else { return }
         presentingViewController.view.layer.transform = .identity
-        managerDelegate?.auxileryView?.removeFromSuperview()
+        manager?.auxileryView?.removeFromSuperview()
         backgroundView.removeFromSuperview()
     }
 
-    fileprivate func getRequestedOffset() -> CGFloat {
-
-        guard let containerView = containerView else {
-            return PresentationViewController.kDefaultOffset
-        }
+    fileprivate var topContainerOffset: CGFloat {
 
         var expectedOffset: CGFloat {
 
-            if let respondingVC = respondingVC {
-
-                if #available(iOS 11.0, *) {
-                    return containerHeight - (respondingVC.sheetHeight ?? defaultHeight) - bottomSafeAreaInset
-                } else {
-                    return containerHeight - (respondingVC.sheetHeight ?? defaultHeight)
-                }
+            guard let sheetHeight = respondingVC?.sheetHeight else {
+                return 0.0
             }
 
-            return PresentationViewController.kDefaultOffset
+            if #available(iOS 11.0, *) {
+                return containerHeight - sheetHeight - bottomSafeAreaInset
+            } else {
+                return containerHeight - sheetHeight
+            }
         }
 
         return max(expectedOffset, UIApplication.shared.statusBarFrame.height)
-    }
-
-    var respondingVC: HalfSheetPresentableProtocol? {
-
-        if let pc = presentedViewController as? HalfSheetPresentableProtocol {
-            return pc
-        }
-
-        if let nc = presentedViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetPresentableProtocol {
-            return pc
-        }
-
-        return nil
-    }
-
-    var topVCProvider: HalfSheetTopVCProviderProtocol? {
-
-        if let pc = presentedViewController as? HalfSheetTopVCProviderProtocol {
-            return pc
-        }
-
-        if let nc = presentedViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetTopVCProviderProtocol {
-            return pc
-        }
-
-        return nil
     }
 
     override public var shouldPresentInFullscreen: Bool {
@@ -209,60 +145,19 @@ public class PresentationViewController: UIPresentationController {
         }
     }
 
-    var defaultHeight: CGFloat {
-        return containerHeight - PresentationViewController.kDefaultOffset
-    }
-
-    private var containerHeight: CGFloat {
-        return containerView?.bounds.height ?? 0.0
-    }
-
     weak var managedScrollView: UIScrollView? {
-
-        if let sheet = respondingVC {
-            return sheet.managedScrollView
-        }
-
-        return nil
+        return respondingVC?.managedScrollView
     }
 
     // MARK: Content Changes
 
     func addTopContent(view: UIView) {
 
-        guard let containerView = containerView else {
-            return
-        }
-
-        containerView.insertSubview(
-            view,
-            aboveSubview: backgroundView
-        )
+        containerView?.insertSubview(view, aboveSubview: backgroundView)
 
         topViewConstraints = view.bindToSuperView(edgeInsets:
-            UIEdgeInsets(
-                top: 0,
-                left: 0,
-                bottom: containerView.bounds.height - getRequestedOffset(),
-                right: 0
-            )
+            UIEdgeInsets(withBottom: containerHeight - topContainerOffset)
         )
-    }
-}
-
-private extension UIView {
-
-    func add(gestureRecognizer: UIGestureRecognizer?) {
-        guard let gestureRecognizer = gestureRecognizer else { return }
-        addGestureRecognizer(gestureRecognizer)
-    }
-
-    func round(corners: UIRectCorner, radius: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
     }
 }
 

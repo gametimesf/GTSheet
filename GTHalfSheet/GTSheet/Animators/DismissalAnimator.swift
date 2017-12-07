@@ -8,80 +8,44 @@
 
 import Foundation
 
-public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning {
+public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewControllerAnimatedTransitioning, AnimatorConvenience {
 
     weak var manager: HalfSheetPresentationManager?
-    weak var managerDelegate: PresentationViewControllerDelegate?
 
+    var isFromGesture: Bool = false
     var animator: UIViewPropertyAnimator?
 
+    public init(manager: HalfSheetPresentationManager) {
+        super.init()
+        self.manager = manager
+    }
+
     public func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        let interactive = (manager?.interactive ?? false)
-        return TransitionConfiguration.Dismissal.duration * (interactive ? 2.5 : 1)
+        return isFromGesture ? TransitionConfiguration.Dismissal.durationAfterGesture : TransitionConfiguration.Dismissal.duration
     }
 
     public func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-
-        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
-        let duration = transitionDuration(using: transitionContext)
-        let timing = UISpringTimingParameters(dampingRatio: 1.3)
-        weak var weakSelf = self
-
-        func animate() {
-
-            let finalTransform = CGAffineTransform(
-                translationX: 0,
-                y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
-            )
-
-            presentedControllerView.layer.transform = finalTransform.as3D
-
-            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.layer.transform = .identity
-            weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
-            weakSelf?.managerDelegate?.auxileryView?.alpha = managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
-            weakSelf?.managerDelegate?.auxileryView?.layer.transform = finalTransform.as3D
-        }
-
-        func complete(completed: Bool) {
-
-            let finished = completed && !transitionContext.transitionWasCancelled
-
-            transitionContext.completeTransition(finished)
-
-            if finished {
-                weakSelf?.manager?.dismissComplete()
-            }
-        }
-
-        animator = UIViewPropertyAnimator(duration: duration * 2.5, timingParameters: timing)
-        animator?.addAnimations(animate)
-        animator?.addCompletion { complete(completed: $0 == .end) }
-        animator?.startAnimation()
-
-        return animator!
+        return transition(using: transitionContext)
     }
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
+        transition(using: transitionContext)
+    }
 
-        guard
-            let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from),
-            let presentingVC = transitionContext.viewController(forKey: .from)
-        else {
-            return
-        }
+    @discardableResult private func transition(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
 
-        weak var weakSelf = self
+        let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
+
+        weak var weakManager = manager
+
+        let finalTransform = CGAffineTransform(translationX: 0, y: shouldSlideAuxilery ? containerHeight : presentedContentHeight )
 
         func animate() {
-            let finalTransform = CGAffineTransform(
-                translationX: 0,
-                y: managerDelegate?.auxileryTransition?.isSlide == true ? (weakSelf?.managerDelegate?.presentationController?.containerView?.bounds.height)! : presentedControllerView.bounds.height
-            )
             presentedControllerView.layer.transform = finalTransform.as3D
-            weakSelf?.managerDelegate?.presentationController?.presentingViewController.view.layer.transform = .identity
-            weakSelf?.managerDelegate?.presentationController?.backgroundView.alpha = 0.0
-            weakSelf?.managerDelegate?.auxileryView?.alpha =  managerDelegate?.auxileryTransition?.isFade == true ? 0.0 : 1.0
-            weakSelf?.managerDelegate?.auxileryView?.layer.transform =  managerDelegate?.auxileryTransition?.isSlide == true ? finalTransform.as3D : .identity
+            weakManager?.presentationController?.presentingViewController.view.layer.transform = .identity
+            weakManager?.presentationController?.backgroundView.alpha = 0.0
+            weakManager?.auxileryView?.alpha =  self.shouldFadeAuxilery ? 0.0 : 1.0
+            weakManager?.auxileryView?.layer.transform =  self.shouldSlideAuxilery ? finalTransform.as3D : .identity
         }
 
         func complete(completed: Bool) {
@@ -89,7 +53,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
             let finished = completed && !transitionContext.transitionWasCancelled
 
             if finished {
-                weakSelf?.manager?.dismissComplete()
+                weakManager?.dismissComplete()
             }
 
             transitionContext.completeTransition(finished)
@@ -106,6 +70,8 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
         animator?.addAnimations(animate)
         animator?.addCompletion { complete(completed: $0 == .end) }
         animator?.startAnimation()
+
+        return animator!
     }
 
     override public func cancel() {
@@ -113,7 +79,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
         animator?.pauseAnimation()
 
-        let duration: CGFloat = 0.3
+        let duration: CGFloat = CGFloat(TransitionConfiguration.Dismissal.duration)
         let timing = UISpringTimingParameters(dampingRatio: 0.7)
 
         animator?.continueAnimation(
@@ -127,7 +93,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
         animator?.pauseAnimation()
 
-        let duration: CGFloat = 0.3
+        let duration: CGFloat = CGFloat(TransitionConfiguration.Dismissal.duration)
         let timing = UISpringTimingParameters(dampingRatio: 1.2)
 
         animator?.continueAnimation(
@@ -138,7 +104,6 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
     override public func update(_ percentComplete: CGFloat) {
         super.update(percentComplete)
-
         animator?.fractionComplete = percentComplete
     }
 }

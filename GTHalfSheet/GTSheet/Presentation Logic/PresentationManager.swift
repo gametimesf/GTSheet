@@ -10,42 +10,41 @@ import Foundation
 
 public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate {
 
-    internal var interactive: Bool = false
     private var observer: NSKeyValueObservation?
 
     public private(set) lazy var dismissingPanGesture: VerticalPanGestureRecognizer = { [unowned self] in
-        let gesture = VerticalPanGestureRecognizer()
-        gesture.addTarget(self, action: #selector(HalfSheetPresentationManager.handleDismissingPan(_:)))
-        return gesture
+        return VerticalPanGestureRecognizer(
+            target: self,
+            action: #selector(HalfSheetPresentationManager.handleDismissingPan(_:))
+        )
     }()
 
     public private(set) lazy var contentDismissingPanGesture: UIPanGestureRecognizer = { [unowned self] in
-        let gesture = UIPanGestureRecognizer()
-        gesture.addTarget(self, action: #selector(HalfSheetPresentationManager.handleDismissingPan(_:)))
-        return gesture
+        return UIPanGestureRecognizer(
+            target: self,
+            action: #selector(HalfSheetPresentationManager.handleDismissingPan(_:))
+        )
     }()
 
     public private(set) lazy var backgroundViewDismissTrigger: UITapGestureRecognizer = { [unowned self] in
-        let gesture = UITapGestureRecognizer()
-        gesture.addTarget(self, action: #selector(HalfSheetPresentationManager.handleDismissingTap))
-        return gesture
+        return UITapGestureRecognizer(
+            target: self,
+            action: #selector(HalfSheetPresentationManager.handleDismissingTap)
+        )
     }()
 
-    fileprivate let presentationAnimation: PresentationAnimator
-    fileprivate let dismissalAnimation: DismissalAnimator
+    fileprivate lazy var presentationAnimation: PresentationAnimator = { [unowned self] in
+        return PresentationAnimator(manager: self)
+    }()
+
+    fileprivate lazy var dismissalAnimation: DismissalAnimator = { [unowned self] in
+        return DismissalAnimator(manager: self)
+    }()
 
     internal var presentationController: PresentationViewController?
 
-    public override init() {
-
-        presentationAnimation = PresentationAnimator()
-        dismissalAnimation = DismissalAnimator()
-
-        super.init()
-
-        presentationAnimation.managerDelegate = self
-        dismissalAnimation.managerDelegate = self
-        dismissalAnimation.manager = self
+    var hasActiveGesture: Bool {
+        return [dismissingPanGesture.state, contentDismissingPanGesture.state].filter { ![.possible, .failed].contains($0) }.isEmpty == false
     }
 
     //
@@ -53,52 +52,44 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     //
 
     @objc func handleDismissingTap() {
-
-        guard
-            allowTapToDismiss,
-            managedScrollView != nil ? managedScrollView?.isScrolling == false : true
-        else {
-            return
-        }
-
-        interactive = false
-        presentationController?.presentedViewController.dismiss(animated: true)
+        guard allowTapToDismiss, !isScrolling else { return }
+        dismissPresentedVC()
     }
 
     @objc func handleDismissingPan(_ pan: UIPanGestureRecognizer) {
+        guard allowTapToDismiss, !isScrolling else { return }
 
-        guard
-            allowTapToDismiss,
-            managedScrollView != nil ? managedScrollView?.isScrolling == false : true
-        else {
-            return
-        }
+        let translation = pan.translation(in: containerView)
+        let velocity = pan.velocity(in: containerView)
 
-        let translation = pan.translation(in: pan.view!)
-        let velocity    = pan.velocity(in: pan.view!)
-        let sourceView  = pan.view
-
-        interactive = true
-
-        let d: CGFloat = max(translation.y, 0) / (sourceView?.bounds.height ?? 0.0)
+        let d: CGFloat = max(translation.y, 0) / containerHeight
 
         switch pan.state {
         case .began:
             guard velocity.y > 0 else { return }
             HapticHelper.warmUp()
-            presentationController?.presentedViewController.dismiss(animated: true, completion:nil)
+            dismissalAnimation.isFromGesture = true
+            dismissPresentedVC()
         case .changed:
             dismissalAnimation.update(d)
 
             if max(translation.y, 0) > TransitionConfiguration.Dismissal.dismissBreakpoint {
-                interactive = false
                 pan.isEnabled = false
                 HapticHelper.impact()
                 dismissalAnimation.finish()
             }
         default:
-            interactive = false
-            translation.y > TransitionConfiguration.Dismissal.dismissBreakpoint ? dismissalAnimation.finish() : dismissalAnimation.cancel()
+
+            func commitTransition() {
+                dismissalAnimation.finish()
+            }
+
+            func cancelTransition() {
+                dismissalAnimation.isFromGesture = false
+                dismissalAnimation.cancel()
+            }
+
+            translation.y > TransitionConfiguration.Dismissal.dismissBreakpoint ? commitTransition() : cancelTransition()
         }
     }
 
@@ -110,35 +101,28 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
             return
         }
 
-        let forwardTransform = CGAffineTransform(
-            translationX: 0,
-            y: -fullOffset
-        )
-
-        let backwardsTransform = CGAffineTransform(
-            translationX: 0,
-            y: fullOffset
-        )
+        let forwardTransform = CGAffineTransform(translationX: 0, y: -fullOffset)
+        let backwardsTransform = CGAffineTransform(translationX: 0, y: fullOffset)
 
         presentationController?.wrappingView.layer.transform = forwardTransform.as3D
+        presentationController?.managedScrollView?.layer.transform = backwardsTransform.as3D
 
-        if auxileryTransition?.isSlide == true {
+        if shouldSlideAuxilery {
             auxileryView?.transform = forwardTransform
         }
 
-        presentationController?.managedScrollView?.layer.transform = backwardsTransform.as3D
-
         if -fullOffset > TransitionConfiguration.Dismissal.dismissBreakpoint {
             observer = nil
-            interactive = false
             HapticHelper.impact()
-            presentationController?.presentedViewController.dismiss(animated: true, completion:nil)
+            dismissalAnimation.isFromGesture = false
+            dismissPresentedVC()
         }
     }
 
     internal func dismissComplete() {
         observer = nil
         (presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
+        (presentationController?.presentingViewController as? HalfSheetPresentingProtocol)?.transitionManager = nil
         presentationController = nil
     }
     
@@ -147,11 +131,11 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     }
 
     private var allowSwipeToDismiss: Bool {
-        return presentationController?.respondingVC?.dismissMethod.allowSwipe ?? false
+        return respondingVC?.dismissMethod.allowSwipe ?? false
     }
 
     private var allowTapToDismiss: Bool {
-        return presentationController?.respondingVC?.dismissMethod.allowTap ?? false
+        return respondingVC?.dismissMethod.allowTap ?? false
     }
 
     private var topOffset: CGFloat {
@@ -160,10 +144,6 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         } else {
             return presentationController?.managedScrollView?.contentInset.top ?? 0.0
         }
-    }
-
-    deinit {
-        observer = nil
     }
 }
 
@@ -178,53 +158,33 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
     }
 
     public func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        return interactive ? dismissalAnimation : nil
+        return hasActiveGesture ? dismissalAnimation : nil
     }
 
     public func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
 
-        assert(presented.modalPresentationStyle == .custom, "you must use custom presentation style for half sheets (and any custom transition")
+        presented.modalPresentationStyle = .custom
 
         presentationController = PresentationViewController(
-            presentedViewController: presented, presenting: source
+            presentedViewController: presented,
+            presentingViewController: source,
+            manager: self
         )
-
-        presentationController?.managerDelegate = self
 
         return presentationController
     }
 
-    var managedScrollView: UIScrollView? {
-        return presentationController?.managedScrollView
+    internal func didFinishPresentation() {
+        observer = presentationController?.managedScrollView?.observe(\UIScrollView.contentOffset, options: [.new]) { [weak self] _, change in
+            guard let offset = change.newValue, offset.y < 0 else { return }
+            self?.updateForScrollPosition(yOffset: offset.y)
+        }
     }
 }
 
-extension UIScrollView {
-    var isScrolling: Bool {
-        return isDragging || isDecelerating
-    }
-}
+extension HalfSheetPresentationManager: AnimatorConvenience {
 
-extension HalfSheetPresentationManager: PresentationViewControllerDelegate {
-
-    internal func didPresent() {
-
-        guard let scrollView = presentationController?.managedScrollView else {
-            return
-        }
-
-        observer = scrollView.observe(\UIScrollView.contentOffset, options: [.new]) { [weak self] _, change in
-            if let offset = change.newValue, offset.y < 0 {
-                self?.updateForScrollPosition(yOffset: offset.y)
-            }
-        }
-    }
-
-    internal var auxileryView: UIView? {
-        return presentationController?.topVCProvider?.topVC.view
-    }
-
-    internal var auxileryTransition: HalfSheetTopVCTransitionStyle? {
-        return presentationController?.topVCProvider?.topVCTransitionStyle
+    weak var manager: HalfSheetPresentationManager? {
+        return self
     }
 }

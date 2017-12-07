@@ -10,12 +10,25 @@ import Foundation
 
 struct TransitionConfiguration {
 
+    static var scalePercentage: CGFloat = 0.92
+
     struct Presentation {
-        static var duration: TimeInterval = 0.25
+        static var duration: TimeInterval = 0.50
     }
 
     struct Dismissal {
         static var duration: TimeInterval = 0.25
+        static var durationAfterGesture: TimeInterval = 1.0
         static var dismissBreakpoint: CGFloat = 100.0
+    }
+}
+
+extension CATransform3D {
+
+    static var backgroundScaleTransform: CATransform3D {
+        return CGAffineTransform(
+            scaleX: TransitionConfiguration.scalePercentage,
+            y: TransitionConfiguration.scalePercentage
+        ).as3D
     }
 }

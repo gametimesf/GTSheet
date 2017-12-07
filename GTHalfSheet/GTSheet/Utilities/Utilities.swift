@@ -47,6 +47,18 @@ extension UIView {
         return horizontalConstraints + verticalConstraints
     }
 
+    func add(gestureRecognizer: UIGestureRecognizer?) {
+        guard let gestureRecognizer = gestureRecognizer else { return }
+        addGestureRecognizer(gestureRecognizer)
+    }
+
+    func round(corners: UIRectCorner, radius: CGFloat) {
+        let maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let maskLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path = maskPath.cgPath
+        self.layer.mask = maskLayer
+    }
 }
 
 extension CGAffineTransform {
@@ -63,6 +75,12 @@ extension CATransform3D {
     }
 }
 
+extension UIScrollView {
+    var isScrolling: Bool {
+        return isDragging || isDecelerating
+    }
+}
+
 struct HapticHelper {
 
     static func warmUp() {
@@ -71,5 +89,16 @@ struct HapticHelper {
 
     static func impact() {
         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+    }
+}
+
+extension UIEdgeInsets {
+
+    init(withTop top: CGFloat = 0.0) {
+        self.init(top: top, left: 0, bottom: 0, right: 0)
+    }
+
+    init(withBottom bottom: CGFloat = 0.0) {
+        self.init(top: 0, left: 0, bottom: bottom, right: 0)
     }
 }

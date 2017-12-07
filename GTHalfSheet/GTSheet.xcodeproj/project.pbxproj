@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6F52931A1FD9C31100AC0EAC /* AnimatorConvenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F5293191FD9C31100AC0EAC /* AnimatorConvenience.swift */; };
 		6F6E69EF1F9FB593006B24EC /* DismissBar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F6E69EE1F9FB593006B24EC /* DismissBar.storyboard */; };
 		6F6E69F11F9FB599006B24EC /* DismissBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F6E69F01F9FB599006B24EC /* DismissBarVC.swift */; };
 		6F82B23C1FD88ED400A30404 /* TransitionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F82B23B1FD88ED400A30404 /* TransitionConfiguration.swift */; };
@@ -22,6 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F5293191FD9C31100AC0EAC /* AnimatorConvenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorConvenience.swift; sourceTree = "<group>"; };
 		6F6E69EE1F9FB593006B24EC /* DismissBar.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DismissBar.storyboard; sourceTree = "<group>"; };
 		6F6E69F01F9FB599006B24EC /* DismissBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DismissBarVC.swift; sourceTree = "<group>"; };
 		6F82B23B1FD88ED400A30404 /* TransitionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionConfiguration.swift; sourceTree = "<group>"; };
@@ -52,8 +54,8 @@
 		6F21484E1F79C80D00482D53 /* Animators */ = {
 			isa = PBXGroup;
 			children = (
-				6FB0B4E71F75860700A4F6D4 /* DismissalAnimator.swift */,
 				6FB0B4EA1F75860800A4F6D4 /* PresentationAnimator.swift */,
+				6FB0B4E71F75860700A4F6D4 /* DismissalAnimator.swift */,
 			);
 			path = Animators;
 			sourceTree = "<group>";
@@ -61,8 +63,8 @@
 		6F21484F1F79C81500482D53 /* Presentation Logic */ = {
 			isa = PBXGroup;
 			children = (
-				6FB0B4E41F75860700A4F6D4 /* PresentationViewController.swift */,
 				6FB0B4E81F75860700A4F6D4 /* PresentationManager.swift */,
+				6FB0B4E41F75860700A4F6D4 /* PresentationViewController.swift */,
 			);
 			path = "Presentation Logic";
 			sourceTree = "<group>";
@@ -75,6 +77,7 @@
 				6FBC01F91F75B79100781E90 /* PresentationProtocol.swift */,
 				6FE85D3D1F75BC7800304BCA /* Utilities.swift */,
 				6F82B23B1FD88ED400A30404 /* TransitionConfiguration.swift */,
+				6F5293191FD9C31100AC0EAC /* AnimatorConvenience.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				6F82B23C1FD88ED400A30404 /* TransitionConfiguration.swift in Sources */,
 				6FB0B4F21F75860800A4F6D4 /* PresentationAnimator.swift in Sources */,
 				6FE85D3E1F75BC7800304BCA /* Utilities.swift in Sources */,
+				6F52931A1FD9C31100AC0EAC /* AnimatorConvenience.swift in Sources */,
 				6FBC01FA1F75B79100781E90 /* PresentationProtocol.swift in Sources */,
 				6FB0B4ED1F75860800A4F6D4 /* Protocols.swift in Sources */,
 			);
