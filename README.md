@@ -1,4 +1,8 @@
-<img src="https://github.com/gametimesf/GTSheet/blob/master/sample.png" width="160">
+<p float="left">
+    <img src="https://github.com/gametimesf/GTSheet/blob/master/sample.png" width="160">
+    <img src="https://github.com/gametimesf/GTSheet/blob/master/sample2.png" width="160">
+    <img src="https://github.com/gametimesf/GTSheet/blob/master/sample3.png" width="160">
+</p>
 
 # GTSheet
 GTSheet is a a simple, easy to integrate solution for presenting `UIViewController` in bottom sheet. We handle all the hard work for you-- transitions, gestures, taps and more are all automatically provided by the library. Styling, however, is intentionally left out, allowing you to integrate your own design language with ease.
