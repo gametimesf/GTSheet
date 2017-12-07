@@ -56,9 +56,7 @@ class HatParentVC: UIViewController, HalfSheetTopVCProviderProtocol {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HatVC")
     }()
 
-    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle {
-        return .slide
-    }
+    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle = .slide
 
     @IBAction func dismiss() {
         dismiss(animated: true)

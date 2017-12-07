@@ -11,6 +11,8 @@ import GTSheet
 
 class ViewController: UIViewController, HalfSheetPresentingProtocol {
 
+    @IBOutlet weak var hatPresentationMode: UISegmentedControl?
+
     var transitionManager: HalfSheetPresentationManager!
 
     @IBAction func showPlainVC() {
@@ -20,9 +22,9 @@ class ViewController: UIViewController, HalfSheetPresentingProtocol {
     }
 
     @IBAction func showVCWithHat() {
-        presentUsingHalfSheet(
-            UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HatParentVC")
-        )
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "HatParentVC") as! HatParentVC
+        vc.topVCTransitionStyle = hatPresentationMode?.selectedSegmentIndex == 0 ? .slide : .fade
+        presentUsingHalfSheet(vc)
     }
     
     @IBAction func showScrollingNC() {
