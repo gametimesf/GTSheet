@@ -42,7 +42,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
         func animate() {
             presentedControllerView.layer.transform = finalTransform.as3D
-            weakManager?.presentationController?.presentingViewController.view.layer.transform = .identity
+            weakManager?.presentationController?.presentingViewContainer.layer.transform = .identity
             weakManager?.presentationController?.backgroundView.alpha = 0.0
             weakManager?.auxileryView?.alpha =  self.shouldFadeAuxilery ? 0.0 : 1.0
             weakManager?.auxileryView?.layer.transform =  self.shouldSlideAuxilery ? finalTransform.as3D : .identity

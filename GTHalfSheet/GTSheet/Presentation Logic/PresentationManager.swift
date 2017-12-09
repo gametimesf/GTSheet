@@ -11,6 +11,8 @@ import Foundation
 public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate {
 
     private var observer: NSKeyValueObservation?
+    private var displayLink: CADisplayLink?
+    private var lastSnapshot: UIView?
 
     public private(set) lazy var dismissingPanGesture: VerticalPanGestureRecognizer = { [unowned self] in
         return VerticalPanGestureRecognizer(
@@ -45,6 +47,12 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
     var hasActiveGesture: Bool {
         return [dismissingPanGesture.state, contentDismissingPanGesture.state].filter { ![.possible, .failed].contains($0) }.isEmpty == false
+    }
+
+    public override init() {
+        super.init()
+
+        linkDisplay()
     }
 
     //
@@ -179,6 +187,26 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
             guard let offset = change.newValue, offset.y < 0 else { return }
             self?.updateForScrollPosition(yOffset: offset.y)
         }
+    }
+}
+
+extension HalfSheetPresentationManager {
+
+    private func linkDisplay() {
+        displayLink?.invalidate()
+        displayLink = UIScreen.main.displayLink(withTarget: self, selector: #selector(HalfSheetPresentationManager.displayDidRefresh(_:)))
+        displayLink?.add(to: .main, forMode: .commonModes)
+    }
+
+    @objc private func displayDidRefresh(_ displayLink: CADisplayLink) {
+        copyPresentingViewToTransitionContext()
+    }
+
+    func copyPresentingViewToTransitionContext() {
+        guard presentationController?.isScrolling == false else {
+            return
+        }
+        presentationController?.presentingViewContainer.image = presentationController?.presentingViewController.view.snapshot()
     }
 }
 

@@ -46,7 +46,7 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning, Ani
 
         func animate() {
             wrappedPresentedView.layer.transform = .identity
-            weakManager?.presentationController?.presentingViewController.view.layer.transform = .backgroundScaleTransform
+            weakManager?.presentationController?.presentingViewContainer.layer.transform = .backgroundScaleTransform
             weakManager?.presentationController?.backgroundView.alpha = 1.0
             weakManager?.auxileryView?.layer.transform = .identity
 

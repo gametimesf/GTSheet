@@ -116,12 +116,17 @@
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items/>
                             </toolbar>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="a1g-pK-9XW">
+                                <rect key="frame" x="169" y="100" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="jj8-Qe-9IU" firstAttribute="centerX" secondItem="4dF-TY-PW0" secondAttribute="centerX" id="FAF-f7-DYl"/>
                             <constraint firstItem="jj8-Qe-9IU" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Fxq-6k-gR7"/>
+                            <constraint firstItem="a1g-pK-9XW" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O9E-8U-zpl"/>
                             <constraint firstItem="4dF-TY-PW0" firstAttribute="bottom" secondItem="Lp5-R4-npe" secondAttribute="bottom" id="ONa-Zr-jaD"/>
+                            <constraint firstItem="a1g-pK-9XW" firstAttribute="top" secondItem="4dF-TY-PW0" secondAttribute="top" constant="36" id="US2-9D-dNo"/>
                             <constraint firstItem="4dF-TY-PW0" firstAttribute="trailing" secondItem="Lp5-R4-npe" secondAttribute="trailing" id="idr-XC-xpm"/>
                             <constraint firstItem="Lp5-R4-npe" firstAttribute="leading" secondItem="4dF-TY-PW0" secondAttribute="leading" id="vyi-tK-h8U"/>
                         </constraints>
