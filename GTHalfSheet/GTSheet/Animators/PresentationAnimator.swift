@@ -46,7 +46,7 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning, Ani
 
         func animate() {
             wrappedPresentedView.layer.transform = .identity
-            weakManager?.presentationController?.presentingViewContainer.layer.transform = .backgroundScaleTransform
+            weakManager?.presentationController?.presentingViewContainer.layer.transform = backgroundTransform(rect: wrappedPresentedView.frame)
             weakManager?.presentationController?.backgroundView.alpha = 1.0
             weakManager?.auxileryView?.layer.transform = .identity
 
@@ -65,5 +65,17 @@ class PresentationAnimator: NSObject, UIViewControllerAnimatedTransitioning, Ani
         animator.addAnimations(animate)
         animator.addCompletion { complete(completed: $0 == .end) }
         animator.startAnimation()
+    }
+
+    func backgroundTransform(rect: CGRect) -> CATransform3D {
+
+        let statusBarHeight = max(28.0, UIApplication.shared.statusBarFrame.height)
+        let scaleFactor = (containerWidth - 16) / containerWidth
+        let backgroundViewPointsFromTop = (containerHeight - (containerHeight * scaleFactor)) / 2
+
+        let scale = CGAffineTransform(scaleX: scaleFactor, y: scaleFactor)
+        let transform = CGAffineTransform(translationX: 0, y: statusBarHeight - backgroundViewPointsFromTop)
+
+        return transform.concatenating(scale).as3D
     }
 }

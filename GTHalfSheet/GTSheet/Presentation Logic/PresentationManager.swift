@@ -51,7 +51,6 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
     public override init() {
         super.init()
-
         linkDisplay()
     }
 
@@ -131,6 +130,8 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
         observer = nil
         (presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
         (presentationController?.presentingViewController as? HalfSheetPresentingProtocol)?.transitionManager = nil
+        displayLink?.invalidate()
+        displayLink = nil
         presentationController = nil
     }
     
@@ -193,20 +194,22 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
 extension HalfSheetPresentationManager {
 
     private func linkDisplay() {
+        copyPresentingViewToTransitionContext(afterScreenUpdate: true)
         displayLink?.invalidate()
         displayLink = UIScreen.main.displayLink(withTarget: self, selector: #selector(HalfSheetPresentationManager.displayDidRefresh(_:)))
-        displayLink?.add(to: .main, forMode: .commonModes)
+        displayLink?.add(to: .main, forMode: .defaultRunLoopMode)
     }
 
     @objc private func displayDidRefresh(_ displayLink: CADisplayLink) {
-        copyPresentingViewToTransitionContext()
+        copyPresentingViewToTransitionContext(afterScreenUpdate: false)
     }
 
-    func copyPresentingViewToTransitionContext() {
-        guard presentationController?.isScrolling == false else {
-            return
-        }
-        presentationController?.presentingViewContainer.image = presentationController?.presentingViewController.view.snapshot()
+    func copyPresentingViewToTransitionContext(afterScreenUpdate: Bool) {
+        presentationController?.presentingViewContainer.isHidden = false
+        lastSnapshot?.removeFromSuperview()
+        lastSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate)
+        lastSnapshot?.frame = presentationController?.presentingViewContainer.bounds ?? .zero
+        presentationController?.presentingViewContainer.addSubview(lastSnapshot!)
     }
 }
 

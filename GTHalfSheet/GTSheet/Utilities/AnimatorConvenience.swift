@@ -46,6 +46,10 @@ extension AnimatorConvenience {
         return containerView?.bounds.height ?? 0.0
     }
 
+    var containerWidth: CGFloat {
+        return containerView?.bounds.width ?? 0.0
+    }
+
     var presentedContentHeight: CGFloat {
         return manager?.presentationController?.presentedViewController.view.bounds.height ?? 0.0
     }

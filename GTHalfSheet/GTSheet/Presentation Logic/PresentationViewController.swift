@@ -14,7 +14,7 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
 
     lazy var backgroundView: UIView = { [unowned self] in
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         return view
     }()
 
@@ -24,13 +24,14 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
         return view
     }()
 
-    lazy var presentingViewContainer: UIImageView = {
-        let imageView = UIImageView()
-        imageView.layer.cornerRadius = 16.0
-        imageView.layer.borderColor = UIColor.white.withAlphaComponent(0.5).cgColor
-        imageView.layer.borderWidth = 0.5
-        imageView.clipsToBounds = true
-        return imageView
+    lazy var presentingViewContainer: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 12.0
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.15).cgColor
+        view.layer.borderWidth = 0.5
+        view.clipsToBounds = true
+        view.isHidden = true
+        return view
     }()
 
     var wrappingView: UIView = UIView()
@@ -102,6 +103,7 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
 
         backgroundLayer.bindToSuperView(edgeInsets: .zero)
         presentingViewContainer.bindToSuperView(edgeInsets: .zero)
+        manager?.copyPresentingViewToTransitionContext(afterScreenUpdate: true)
         backgroundView.bindToSuperView(edgeInsets: .zero)
         presentedView.bindToSuperView(edgeInsets: .zero)
 

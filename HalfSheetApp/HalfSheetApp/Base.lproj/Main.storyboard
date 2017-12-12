@@ -15,8 +15,8 @@
         <scene sceneID="9Fa-ia-e5m">
             <objects>
                 <navigationController id="ZB5-xI-I3L" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ic0-DW-qeN">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" largeTitles="YES" id="ic0-DW-qeN">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -112,12 +112,12 @@
                                     <constraint firstAttribute="width" constant="300" id="VZ0-zc-rmr"/>
                                 </constraints>
                             </stackView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lp5-R4-npe">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="Lp5-R4-npe">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items/>
                             </toolbar>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="a1g-pK-9XW">
-                                <rect key="frame" x="169" y="100" width="37" height="37"/>
+                                <rect key="frame" x="169" y="152" width="37" height="37"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.37647058820000001" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
