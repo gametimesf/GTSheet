@@ -14,8 +14,23 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
 
     lazy var backgroundView: UIView = { [unowned self] in
         let view = UIView()
-        view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
-        view.alpha = 1.0
+        view.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        return view
+    }()
+
+    lazy var backgroundLayer: UIView = { [unowned self] in
+        let view = UIView()
+        view.backgroundColor = UIColor.black
+        return view
+    }()
+
+    lazy var presentingViewContainer: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 12.0
+        view.layer.borderColor = UIColor.white.withAlphaComponent(0.15).cgColor
+        view.layer.borderWidth = 0.5
+        view.clipsToBounds = true
+        view.isHidden = true
         return view
     }()
 
@@ -76,6 +91,8 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
 
         (presentedViewController as? UINavigationController)?.delegate = self
 
+        containerView.addSubview(backgroundLayer)
+        containerView.addSubview(presentingViewContainer)
         containerView.addSubview(backgroundView)
         containerView.addSubview(wrappingView)
         wrappingView.addSubview(presentedView)
@@ -84,6 +101,9 @@ public class PresentationViewController: UIPresentationController, AnimatorConve
             addTopContent(view: view)
         }
 
+        backgroundLayer.bindToSuperView(edgeInsets: .zero)
+        presentingViewContainer.bindToSuperView(edgeInsets: .zero)
+        manager?.copyPresentingViewToTransitionContext(afterScreenUpdate: true)
         backgroundView.bindToSuperView(edgeInsets: .zero)
         presentedView.bindToSuperView(edgeInsets: .zero)
 

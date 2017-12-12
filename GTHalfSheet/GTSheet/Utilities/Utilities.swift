@@ -59,6 +59,16 @@ extension UIView {
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
     }
+
+    func snapshot() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+
+        drawHierarchy(in: self.bounds, afterScreenUpdates: false)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
+    }
 }
 
 extension CGAffineTransform {
@@ -91,6 +101,7 @@ struct HapticHelper {
         UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
     }
 }
+
 
 extension UIEdgeInsets {
 

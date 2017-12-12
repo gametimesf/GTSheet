@@ -22,13 +22,3 @@ struct TransitionConfiguration {
         static var dismissBreakpoint: CGFloat = 100.0
     }
 }
-
-extension CATransform3D {
-
-    static var backgroundScaleTransform: CATransform3D {
-        return CGAffineTransform(
-            scaleX: TransitionConfiguration.scalePercentage,
-            y: TransitionConfiguration.scalePercentage
-        ).as3D
-    }
-}
