@@ -208,8 +208,9 @@ extension HalfSheetPresentationManager {
         presentationController?.presentingViewContainer.isHidden = false
         lastSnapshot?.removeFromSuperview()
         lastSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate)
-        lastSnapshot?.frame = presentationController?.presentingViewContainer.bounds ?? .zero
-        presentationController?.presentingViewContainer.addSubview(lastSnapshot!)
+        guard let lastSnapshot = lastSnapshot else { return }
+        lastSnapshot.frame = presentationController?.presentingViewContainer.bounds ?? .zero
+        presentationController?.presentingViewContainer.addSubview(lastSnapshot)
     }
 }
 
