@@ -205,12 +205,12 @@ extension HalfSheetPresentationManager {
     }
 
     func copyPresentingViewToTransitionContext(afterScreenUpdate: Bool) {
+        guard let newSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate) else { return }
         presentationController?.presentingViewContainer.isHidden = false
         lastSnapshot?.removeFromSuperview()
-        lastSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate)
-        guard let lastSnapshot = lastSnapshot, UIApplication.shared.applicationState == .active else { return }
-        lastSnapshot.frame = presentationController?.presentingViewContainer.bounds ?? .zero
-        presentationController?.presentingViewContainer.addSubview(lastSnapshot)
+        newSnapshot.frame = presentationController?.presentingViewContainer.bounds ?? .zero
+        presentationController?.presentingViewContainer.addSubview(newSnapshot)
+        lastSnapshot = newSnapshot
     }
 }
 
