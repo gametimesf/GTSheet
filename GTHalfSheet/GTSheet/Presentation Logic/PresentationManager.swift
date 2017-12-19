@@ -51,6 +51,15 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
     public override init() {
         super.init()
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.unlinkDisplay()
+        }
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.linkDisplay()
+        }
+
         linkDisplay()
     }
 
@@ -192,6 +201,11 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
 }
 
 extension HalfSheetPresentationManager {
+
+    private func unlinkDisplay() {
+        displayLink?.invalidate()
+        displayLink = nil
+    }
 
     private func linkDisplay() {
         copyPresentingViewToTransitionContext(afterScreenUpdate: true)
