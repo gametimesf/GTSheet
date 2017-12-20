@@ -51,6 +51,15 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
     public override init() {
         super.init()
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.unlinkDisplay()
+        }
+
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            self?.linkDisplay()
+        }
+
         linkDisplay()
     }
 
@@ -193,6 +202,11 @@ extension HalfSheetPresentationManager: UIViewControllerTransitioningDelegate {
 
 extension HalfSheetPresentationManager {
 
+    private func unlinkDisplay() {
+        displayLink?.invalidate()
+        displayLink = nil
+    }
+
     private func linkDisplay() {
         copyPresentingViewToTransitionContext(afterScreenUpdate: true)
         displayLink?.invalidate()
@@ -205,11 +219,12 @@ extension HalfSheetPresentationManager {
     }
 
     func copyPresentingViewToTransitionContext(afterScreenUpdate: Bool) {
+        guard let newSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate) else { return }
         presentationController?.presentingViewContainer.isHidden = false
         lastSnapshot?.removeFromSuperview()
-        lastSnapshot = presentationController?.presentingViewController.view.snapshotView(afterScreenUpdates: afterScreenUpdate)
-        lastSnapshot?.frame = presentationController?.presentingViewContainer.bounds ?? .zero
-        presentationController?.presentingViewContainer.addSubview(lastSnapshot!)
+        newSnapshot.frame = presentationController?.presentingViewContainer.bounds ?? .zero
+        presentationController?.presentingViewContainer.addSubview(newSnapshot)
+        lastSnapshot = newSnapshot
     }
 }
 
