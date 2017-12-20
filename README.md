@@ -48,6 +48,6 @@ public extension HalfSheetPresentingProtocol where Self: UIViewController {
 #### `HalfSheetCompletionProtocol`
 Implement this on your presenting `UIViewController` to receive a callback when your bottom sheet is dismissed.
 #### `HalfSheetAppearanceProtocol`
-Although most styling can be acomplished by using `UIAppearance`, some advanced changes are simply not possible. This protocol exposes additonal styling options that will be handled within the library.
+Although most styling can be accomplished by using `UIAppearance`, some advanced changes are simply not possible. This protocol exposes additional styling options that will be handled within the library.
 #### `HalfSheetTopVCProviderProtocol`
 By conforming to this protocol on your presented `UIViewController`, you are able to provide a `UIViewController` that will fill the unused space above your bottom sheet.
