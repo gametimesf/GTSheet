@@ -137,8 +137,34 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
 
     internal func dismissComplete() {
         observer = nil
-        (presentationController?.presentingViewController as? HalfSheetCompletionProtocol)?.didDismiss()
-        (presentationController?.presentingViewController as? HalfSheetPresentingProtocol)?.transitionManager = nil
+
+        var respondingHalfSheetCompletionProtocol: HalfSheetCompletionProtocol? {
+            if let pc = presentationController?.presentingViewController as? HalfSheetCompletionProtocol {
+                return pc
+            }
+
+            if let nc = presentationController?.presentingViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetCompletionProtocol {
+                return pc
+            }
+
+            return nil
+        }
+
+        var respondingPresentationProtocol: HalfSheetPresentingProtocol? {
+            if let pc = presentationController?.presentingViewController as? HalfSheetPresentingProtocol {
+                return pc
+            }
+
+            if let nc = presentationController?.presentingViewController as? UINavigationController, let pc = nc.viewControllers.last as? HalfSheetPresentingProtocol {
+                return pc
+            }
+
+            return nil
+        }
+
+        respondingHalfSheetCompletionProtocol?.didDismiss()
+        respondingPresentationProtocol?.transitionManager = nil
+
         displayLink?.invalidate()
         displayLink = nil
         presentationController = nil
