@@ -63,6 +63,49 @@ class HatParentVC: UIViewController, HalfSheetTopVCProviderProtocol {
     }
 }
 
+class InputVC: UIViewController, HalfSheetPresentableProtocol, HalfSheetTopVCProviderProtocol {
+
+    var topVCTransitionStyle: HalfSheetTopVCTransitionStyle {
+        return .slide
+    }
+
+    lazy var topVC: UIViewController = {
+        return DismissBarVC.instance(tintColor: .white)
+    }()
+
+    private var isKeyboardUp = false {
+        didSet {
+            let keyboardHeight: CGFloat = isKeyboardUp ? 300.0 : 0.0
+            sheetHeight = 250.0 + keyboardHeight
+            didUpdateSheetHeight()
+        }
+    }
+
+    @IBOutlet weak var textField: UITextField?
+
+    var sheetHeight: CGFloat? = 250.0
+
+    var managedScrollView: UIScrollView? {
+        return nil
+    }
+
+    var dismissMethod: [DismissMethod] {
+        return [.tap, .swipe]
+    }
+
+    @IBAction func dismiss() {
+        dismiss(animated: true)
+    }
+
+    @IBAction func editingDidBegin(_ sender: Any) {
+        isKeyboardUp = true
+    }
+
+    @IBAction func editingDidEnd(_ sender: Any) {
+        isKeyboardUp = false
+    }
+}
+
 class HatVC: UIViewController { }
 class ScrollingVC: UITableViewController { }
 

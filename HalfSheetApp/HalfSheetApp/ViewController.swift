@@ -32,6 +32,12 @@ class ViewController: UIViewController, HalfSheetPresentingProtocol {
             UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ScrollingNC")
         )
     }
+
+    @IBAction func showWithInput() {
+        presentUsingHalfSheet(
+            UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "inputVC")
+        )
+    }
 }
 
 extension ViewController: HalfSheetCompletionProtocol {

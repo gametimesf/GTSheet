@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZB5-xI-I3L">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZB5-xI-I3L">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -36,7 +36,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jj8-Qe-9IU">
-                                <rect key="frame" x="37.5" y="241.5" width="300" height="185"/>
+                                <rect key="frame" x="37.5" y="220.5" width="300" height="227"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999998807907104" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Examples" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rzQ-Dl-2kt">
                                         <rect key="frame" x="0.0" y="0.0" width="300" height="20.5"/>
@@ -86,21 +86,33 @@
                                             <action selector="showVCWithHat" destination="BYZ-38-t0r" eventType="touchUpInside" id="cn3-C3-yrm"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ke1-AD-akE">
+                                        <rect key="frame" x="0.0" y="112.5" width="300" height="34"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <inset key="contentEdgeInsets" minX="6" minY="8" maxX="6" maxY="8"/>
+                                        <state key="normal" title="Sheet with input!">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showWithInput" destination="BYZ-38-t0r" eventType="touchUpInside" id="ajW-zG-DUh"/>
+                                        </connections>
+                                    </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MsP-Fx-Ffa">
-                                        <rect key="frame" x="0.0" y="112.5" width="300" height="8"/>
+                                        <rect key="frame" x="0.0" y="154.5" width="300" height="8"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="8" id="cx5-21-eiH"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="76N-ml-2Hl">
-                                        <rect key="frame" x="0.0" y="128.5" width="300" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="170.5" width="300" height="20.5"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="pEe-pi-XYd">
-                                        <rect key="frame" x="0.0" y="157" width="300" height="29"/>
+                                        <rect key="frame" x="0.0" y="199" width="300" height="29"/>
                                         <segments>
                                             <segment title="Slide Hat"/>
                                             <segment title="Fade Hat"/>
@@ -246,6 +258,57 @@ HAT
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5xf-qA-l72" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="924" y="868.51574212893559"/>
+        </scene>
+        <!--InputVC-->
+        <scene sceneID="2SP-Bz-ER4">
+            <objects>
+                <viewController storyboardIdentifier="inputVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="C4X-yT-J6F" customClass="InputVC" customModule="HalfSheetApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0pW-p5-Lz4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Sf0-iO-mXV">
+                                <rect key="frame" x="0.0" y="52" width="375" height="33"/>
+                                <color key="backgroundColor" red="0.18823529411764706" green="0.89411764705882357" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="editingDidBegin:" destination="C4X-yT-J6F" eventType="editingDidBegin" id="YqF-VV-UF8"/>
+                                    <action selector="editingDidEnd:" destination="C4X-yT-J6F" eventType="editingDidEnd" id="hWM-01-whg"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bpZ-eR-mpT">
+                                <rect key="frame" x="61" y="101" width="253" height="47"/>
+                                <color key="backgroundColor" red="0.9689086294" green="0.9689086294" blue="0.9689086294" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                <inset key="contentEdgeInsets" minX="10" minY="10" maxX="10" maxY="10"/>
+                                <state key="normal" title="Bye Bye Sheet and Hat">
+                                    <color key="titleColor" red="0.40000000000000002" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismiss" destination="p1q-8m-xl7" eventType="touchUpInside" id="eTf-Qs-Qo5"/>
+                                    <action selector="dismiss" destination="C4X-yT-J6F" eventType="touchUpInside" id="zdX-hQ-xOY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="yUz-ky-m9z" firstAttribute="trailing" secondItem="Sf0-iO-mXV" secondAttribute="trailing" id="7tK-Gp-Q4F"/>
+                            <constraint firstItem="Sf0-iO-mXV" firstAttribute="leading" secondItem="yUz-ky-m9z" secondAttribute="leading" id="LSp-6Z-bj9"/>
+                            <constraint firstItem="Sf0-iO-mXV" firstAttribute="top" secondItem="yUz-ky-m9z" secondAttribute="top" constant="32" id="OZR-bJ-Ulk"/>
+                            <constraint firstItem="bpZ-eR-mpT" firstAttribute="top" secondItem="Sf0-iO-mXV" secondAttribute="bottom" constant="16" id="SB1-nR-GHX"/>
+                            <constraint firstItem="bpZ-eR-mpT" firstAttribute="centerX" secondItem="yUz-ky-m9z" secondAttribute="centerX" id="vIb-9N-ek6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yUz-ky-m9z"/>
+                    </view>
+                    <connections>
+                        <outlet property="textField" destination="Sf0-iO-mXV" id="lBX-vc-vWn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5EN-Sm-aeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1630" y="860"/>
         </scene>
         <!--ScrollingNC-->
         <scene sceneID="6E8-Si-O4m">

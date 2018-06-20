@@ -71,6 +71,7 @@ extension AnimatorConvenience {
     //
 
     func dismissPresentedVC() {
+        manager?.presentationController?.wrappingView.endEditing(true)
         manager?.presentationController?.presentedViewController.dismiss(animated: true)
     }
 }
