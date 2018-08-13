@@ -3,6 +3,14 @@
 # GTSheet
 GTSheet is a a simple, easy to integrate solution for presenting `UIViewController` in bottom sheet. We handle all the hard work for you-- transitions, gestures, taps and more are all automatically provided by the library. Styling, however, is intentionally left out, allowing you to integrate your own design language with ease.
 
+## Installation
+
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
+### Carthage
+
+    github "gametimesf/GTSheet" == 1.1
+
 ## Getting Started
 
 The example project included is a great way to try out the features of GTSheet and experiment with some of the more advanced functionality. You can explore integrations for regular a `UIViewController`, a `UIViewController` that includes a `UIScrollView`, such as a `UITableViewController`. You can also explore a more complex example, using functionality to present a `UIViewController` above the bottom sheet.
