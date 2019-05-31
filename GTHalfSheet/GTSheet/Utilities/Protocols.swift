@@ -37,7 +37,7 @@ internal extension Array where Element == DismissMethod {
 }
 
 public protocol HalfSheetPresentableProtocol: class {
-    weak var managedScrollView: UIScrollView? { get }
+    var managedScrollView: UIScrollView? { get }
     var dismissMethod: [DismissMethod] { get }
     var sheetHeight: CGFloat? { get }
 }

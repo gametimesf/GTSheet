@@ -9,7 +9,7 @@
 import Foundation
 
 protocol AnimatorConvenience {
-    weak var manager: HalfSheetPresentationManager? { get }
+    var manager: HalfSheetPresentationManager? { get }
 }
 
 extension AnimatorConvenience {

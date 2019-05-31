@@ -52,11 +52,11 @@ public class HalfSheetPresentationManager: NSObject, UIGestureRecognizerDelegate
     public override init() {
         super.init()
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationWillResignActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: UIApplication.willResignActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] _ in
             self?.unlinkDisplay()
         }
 
-        NotificationCenter.default.addObserver(forName: NSNotification.Name.UIApplicationDidBecomeActive, object: nil, queue: OperationQueue.main) { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: UIApplication.didBecomeActiveNotification, object: nil, queue: OperationQueue.main) { [weak self] _ in
             self?.linkDisplay()
         }
 
@@ -237,7 +237,7 @@ extension HalfSheetPresentationManager {
         copyPresentingViewToTransitionContext(afterScreenUpdate: true)
         displayLink?.invalidate()
         displayLink = UIScreen.main.displayLink(withTarget: self, selector: #selector(HalfSheetPresentationManager.displayDidRefresh(_:)))
-        displayLink?.add(to: .main, forMode: .defaultRunLoopMode)
+        displayLink?.add(to: .main, forMode: RunLoop.Mode.default)
     }
 
     @objc private func displayDidRefresh(_ displayLink: CADisplayLink) {
