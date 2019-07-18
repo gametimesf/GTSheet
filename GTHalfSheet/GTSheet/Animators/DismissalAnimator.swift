@@ -14,6 +14,7 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
 
     var isFromGesture: Bool = false
     var animator: UIViewPropertyAnimator?
+    var interuptableAnimator: UIViewImplicitlyAnimating?
 
     public init(manager: HalfSheetPresentationManager) {
         super.init()
@@ -25,14 +26,19 @@ public class DismissalAnimator: UIPercentDrivenInteractiveTransition, UIViewCont
     }
 
     public func interruptibleAnimator(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
-        return transition(using: transitionContext)
+        guard let interupt = interuptableAnimator else {
+            interuptableAnimator = transition(using: transitionContext)
+            return interuptableAnimator!
+        }
+
+        return interupt
     }
 
     public func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        transition(using: transitionContext)
+        interuptableAnimator = transition(using: transitionContext)
     }
 
-    @discardableResult private func transition(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
+    private func transition(using transitionContext: UIViewControllerContextTransitioning) -> UIViewImplicitlyAnimating {
 
         let presentedControllerView = transitionContext.view(forKey: UITransitionContextViewKey.from)!
 
