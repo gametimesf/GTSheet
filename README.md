@@ -1,3 +1,6 @@
+# No Longer Maintained 
+GTSheet is no longer used internally at Gametime, as we've migrated our apps to React Native. As such, this repository is no logner maintained or supported. 
+
 <img src="https://github.com/gametimesf/GTSheet/blob/master/sample.png" width="160">
 
 # GTSheet
